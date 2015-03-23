@@ -1,4 +1,4 @@
-package com.clara;
+package com.Marty;
 
 import java.util.Timer;
 
@@ -108,6 +108,7 @@ public class SnakeGame {
 	}
 
 	public static void setGameStage(int gameStage) {
-		SnakeGame.gameStage = gameStage;
+
+        SnakeGame.gameStage = gameStage;
 	}
 }
