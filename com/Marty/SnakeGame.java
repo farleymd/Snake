@@ -13,7 +13,7 @@ public class SnakeGame {
 	public static int xSquares ;
 	public static int ySquares ;
 
-	public final static int squareSize = 50;
+	public final static int squareSize = 30;
 
 	protected static Snake snake ;
 

@@ -98,7 +98,9 @@ public class Snake {
 		currentHeading = DIRECTION_DOWN;
 	}
 	public void snakeLeft(){
-		if (currentHeading == DIRECTION_LEFT || currentHeading == DIRECTION_RIGHT) { return; }
+		if (currentHeading == DIRECTION_LEFT || currentHeading == DIRECTION_RIGHT) {
+			return;
+		}
 		currentHeading = DIRECTION_LEFT;
 	}
 	public void snakeRight(){

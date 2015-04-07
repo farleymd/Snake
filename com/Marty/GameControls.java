@@ -75,7 +75,8 @@ public class GameControls implements KeyListener{
 		//keyTyped events are for user typing letters on the keyboard, anything that makes a character display on the screen
 		char keyPressed = ev.getKeyChar();
 		char q = 'q';
-		if( keyPressed == q){
+		char Q = 'Q';
+		if( keyPressed == q || keyPressed == Q){
 			System.exit(0);    //quit if user presses the q key.
 		}
 	}
