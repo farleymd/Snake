@@ -28,7 +28,7 @@ public class GameControls implements KeyListener{
 			//Start the game
 			SnakeGame.setGameStage(SnakeGame.DURING_GAME);
 			SnakeGame.newGame();
-			panel.repaint();
+			//panel.repaint();
 			return;
 		}
 		

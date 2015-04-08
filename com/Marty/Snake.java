@@ -13,6 +13,8 @@ public class Snake {
 	private boolean hitWall = false;
 	private boolean ateTail = false;
 
+    private boolean turnOffWarp = true;  //Variable to hold user's decision to turn Snake warping on or off
+
 	private int snakeSquares[][];  //represents all of the squares on the screen
 	//NOT pixels!
 	//A 0 means there is no part of the snake in this square
@@ -171,18 +173,35 @@ public class Snake {
 		}
 		if (currentHeading == DIRECTION_LEFT) {		
 			//Subtract 1 from X coordinate so head is 1 square to the left
+            System.out.println("Left" + snakeHeadX);
 			snakeHeadX -- ;
 		}
 		if (currentHeading == DIRECTION_RIGHT) {		
 			//Add 1 to X coordinate so head is 1 square to the right
+            System.out.println("Right: " + snakeHeadX);
 			snakeHeadX ++ ;
 		}
 
-		//Does this make snake hit the wall?
-		if (snakeHeadX >= maxX || snakeHeadX < 0 || snakeHeadY >= maxY || snakeHeadY < 0 ) {
-			hitWall = true;	
-			SnakeGame.setGameStage(SnakeGame.GAME_OVER);
-			return;
+		//Does this snake hit the vertical walls? Is user warp choice on or off?
+		if (snakeHeadX >= maxX || snakeHeadX < 0){
+            if (turnOffWarp == true){
+                hitWall = true;
+                SnakeGame.setGameStage(SnakeGame.GAME_OVER);
+                return;
+            } else{
+                //TODO warp to the other side of X
+            }
+        }
+
+        //Does this snake hit the horizontal walls? Is user warp choice on or off?
+        if (snakeHeadY >= maxY || snakeHeadY < 0 ) {
+            if (turnOffWarp == true){
+                hitWall = true;
+                SnakeGame.setGameStage(SnakeGame.GAME_OVER);
+                return;
+            } else{
+                //TODO warp to the other side of Y
+            }
 		}
 
 		//Does this make the snake eat its tail?

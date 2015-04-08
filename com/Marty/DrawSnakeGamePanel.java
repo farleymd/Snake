@@ -3,7 +3,7 @@ package com.Marty;
 import java.awt.*;
 import java.util.LinkedList;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 
 /** This class responsible for displaying the graphics, so the snake, grid, kibble, instruction text and high score
  * 
@@ -17,6 +17,7 @@ public class DrawSnakeGamePanel extends JPanel {
 	private Snake snake;
 	private Kibble kibble;
 	private Score score;
+
 	
 	DrawSnakeGamePanel(Snake s, Kibble k, Score sc){
 		this.snake = s;
@@ -96,20 +97,22 @@ public class DrawSnakeGamePanel extends JPanel {
 
 	private void displayGameGrid(Graphics g) {
 
+        //SnakePanelGUI snakePanelGUI = new SnakePanelGUI();
+
 		int maxX = SnakeGame.xPixelMaxDimension;
 		int maxY= SnakeGame.yPixelMaxDimension;
 		int squareSize = SnakeGame.squareSize;
-		
+
 		g.clearRect(0, 0, maxX, maxY);
 
 		g.setColor(Color.RED);
 
 		//Draw grid - horizontal lines
-		for (int y=0; y <= maxY ; y+= squareSize){			
+		for (int y=0; y <= maxY ; y+= squareSize){
 			g.drawLine(0, y, maxX, y);
 		}
 		//Draw grid - vertical lines
-		for (int x=0; x <= maxX ; x+= squareSize){			
+		for (int x=0; x <= maxX ; x+= squareSize){
 			g.drawLine(x, 0, x, maxY);
 		}
 	}
@@ -129,12 +132,12 @@ public class DrawSnakeGamePanel extends JPanel {
 	private void displaySnake(Graphics g) {
 
 		LinkedList<Point> coordinates = snake.segmentsToDraw();
-		
+
 		//Draw head in grey
 		g.setColor(Color.LIGHT_GRAY);
 		Point head = coordinates.pop();
 		g.fillRect((int)head.getX(), (int)head.getY(), SnakeGame.squareSize, SnakeGame.squareSize);
-		
+
 		//Draw rest of snake in black
 		g.setColor(Color.BLACK);
 		for (Point p : coordinates) {
@@ -144,10 +147,12 @@ public class DrawSnakeGamePanel extends JPanel {
 	}
 
 	private void displayInstructions(Graphics g) {
-        g.drawString("Press any key to begin!",100,200);		
-        g.drawString("Press q to quit the game",100,300);		
+        //TODO IDEA-1
+
+        SnakeStartGUI snakeStartGUI = new SnakeStartGUI();
+
+        g.drawString("Press any key to begin!",100,200);
+        g.drawString("Press q to quit the game",100,300);
     	}
-	
-    
 }
 
