@@ -212,7 +212,19 @@ public class Maze extends JPanel {
         g.fillRect(wall.get(0)+60, wall.get(1)-30, squareSize, squareSize);
         g.fillRect(wall.get(0)+90, wall.get(1)-30, squareSize, squareSize);
 
+    }
 
+    public ArrayList kibbleBlockX(){
+        ArrayList<Integer> kibbleBlockX = new ArrayList<Integer>();
+
+        kibbleBlockX.add(0, wall1.get(0));
+        kibbleBlockX.add(0, wall2.get(0));
+        kibbleBlockX.add(0, wall3.get(0));
+        kibbleBlockX.add(0, wall4.get(0));
+        kibbleBlockX.add(0, wall5.get(0));
+        kibbleBlockX.add(0, wall6.get(0));
+
+        return kibbleBlockX;
     }
 
 }
