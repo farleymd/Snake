@@ -33,7 +33,16 @@ public class GameClock extends TimerTask {
 				if (snake.didEatKibble(kibble) == true) {		
 					//tell kibble to update
 					kibble.moveKibble(snake);
-					Score.increaseScore();
+
+                    boolean warpWallsOff = snake.getWarpChoice();
+
+                    //if warp walls are not on, player gets double points
+                    if (warpWallsOff == true){
+                        Score.doubleScore();
+                    } else {
+                        Score.increaseScore();
+                    }
+
 				}
 				break;
 			}

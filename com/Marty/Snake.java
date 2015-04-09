@@ -14,6 +14,7 @@ public class Snake {
 	private boolean ateTail = false;
 
     private boolean turnOffWarp = false;  //Variable to hold user's decision to turn Snake warping on or off
+    private boolean turnOffMaze = false;
 
 	private int snakeSquares[][];  //represents all of the squares on the screen
 	//NOT pixels!
@@ -43,6 +44,7 @@ public class Snake {
 		createStartSnake();
 	}
 
+
 	protected void createStartSnake(){
 		//snake starts as 3 horizontal squares in the center of the screen, moving left
 		int screenXCenter = (int) maxX/2;  //Cast just in case we have an odd number
@@ -70,6 +72,10 @@ public class Snake {
 			}
 		}
 	}
+
+    public boolean getWarpChoice(){
+        return turnOffWarp;
+    }
 
 	public LinkedList<Point> segmentsToDraw(){
 		//Return a list of the actual x and y coordinates of the top left of each snake segment

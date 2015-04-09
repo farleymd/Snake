@@ -26,6 +26,10 @@ public class Score {
 		score = score + increment;
 		
 	}
+
+    public static void doubleScore(){
+        score = (score + increment) * 2;
+    }
 	
 	public int getScore(){
 		return score;
