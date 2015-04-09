@@ -1,6 +1,6 @@
 package com.Marty;
 
-import java.awt.Point;
+import java.awt.*;
 import java.util.LinkedList;
 
 public class Snake {
@@ -13,7 +13,7 @@ public class Snake {
 	private boolean hitWall = false;
 	private boolean ateTail = false;
 
-    private boolean turnOffWarp = true;  //Variable to hold user's decision to turn Snake warping on or off
+    private boolean turnOffWarp = false;  //Variable to hold user's decision to turn Snake warping on or off
 
 	private int snakeSquares[][];  //represents all of the squares on the screen
 	//NOT pixels!
@@ -183,26 +183,28 @@ public class Snake {
 		}
 
 		//Does this snake hit the vertical walls? Is user warp choice on or off?
-		if (snakeHeadX >= maxX || snakeHeadX < 0){
+		if (snakeHeadX >= maxX || snakeHeadX < 0 || snakeHeadY >= maxY || snakeHeadY < 0){
             if (turnOffWarp == true){
                 hitWall = true;
                 SnakeGame.setGameStage(SnakeGame.GAME_OVER);
                 return;
             } else{
-                //TODO warp to the other side of X
+				snakeSquares = new int[maxX][maxY];
+				fillSnakeSquaresWithZeros();
+
+				if (lastHeading == DIRECTION_LEFT && snakeHeadX == -1){  //if snake hits left wall
+					warpFromRight();
+				}else if (lastHeading == DIRECTION_RIGHT && snakeHeadX == maxX){
+					warpFromLeft();
+				}else if (lastHeading == DIRECTION_UP && snakeHeadY == -1){
+					warpFromBottom();
+				} else if (lastHeading == DIRECTION_DOWN && snakeHeadY == maxY){
+					warpFromTop();
+				}
             }
         }
 
-        //Does this snake hit the horizontal walls? Is user warp choice on or off?
-        if (snakeHeadY >= maxY || snakeHeadY < 0 ) {
-            if (turnOffWarp == true){
-                hitWall = true;
-                SnakeGame.setGameStage(SnakeGame.GAME_OVER);
-                return;
-            } else{
-                //TODO warp to the other side of Y
-            }
-		}
+
 
 		//Does this make the snake eat its tail?
 
@@ -238,6 +240,43 @@ public class Snake {
 		lastHeading = currentHeading; //Update last confirmed heading
 
 	}
+
+	protected void warpFromRight(){
+		int screenFarRight = maxX-1;
+
+		snakeHeadX = screenFarRight;
+
+		currentHeading = DIRECTION_LEFT;
+		lastHeading = DIRECTION_LEFT;
+	}
+
+	protected void warpFromLeft(){
+		int screenFarRight = 0;
+
+		snakeHeadX = screenFarRight;
+
+		currentHeading = DIRECTION_RIGHT;
+		lastHeading = DIRECTION_RIGHT;
+	}
+
+	protected void warpFromBottom(){
+		int screenBottom = maxY-1;
+
+		snakeHeadY = screenBottom;
+
+		currentHeading = DIRECTION_UP;
+		lastHeading = DIRECTION_UP;
+	}
+
+	protected void warpFromTop(){
+		int screenTop = 0;
+
+		snakeHeadY = screenTop;
+
+		currentHeading = DIRECTION_DOWN;
+		lastHeading = DIRECTION_DOWN;
+	}
+
 
 	protected boolean didHitWall(){
 		return hitWall;

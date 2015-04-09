@@ -92,7 +92,7 @@ public class DrawSnakeGamePanel extends JPanel {
 	private void displayGame(Graphics g) {
 		displayGameGrid(g);
 		displaySnake(g);
-		displayKibble(g);	
+		displayKibble(g);
 	}
 
 	private void displayGameGrid(Graphics g) {
@@ -149,7 +149,7 @@ public class DrawSnakeGamePanel extends JPanel {
 	private void displayInstructions(Graphics g) {
         //TODO IDEA-1
 
-        SnakeStartGUI snakeStartGUI = new SnakeStartGUI();
+        //SnakeStartGUI snakeStartGUI = new SnakeStartGUI();
 
         g.drawString("Press any key to begin!",100,200);
         g.drawString("Press q to quit the game",100,300);
