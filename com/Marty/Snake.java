@@ -14,7 +14,6 @@ public class Snake {
 	private boolean ateTail = false;
 
     private boolean turnOffWarp = false;  //Variable to hold user's decision to turn Snake warping on or off
-    private boolean turnOffMaze = false;
 
 	private int snakeSquares[][];  //represents all of the squares on the screen
 	//NOT pixels!

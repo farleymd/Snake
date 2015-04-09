@@ -12,7 +12,6 @@ import javax.swing.*;
  *
  */
 public class DrawSnakeGamePanel extends JPanel {
-    Random rnd = new Random();
 
 	private static int gameStage = SnakeGame.BEFORE_GAME;  //use this to figure out what to paint
 	
@@ -21,12 +20,7 @@ public class DrawSnakeGamePanel extends JPanel {
 	private Score score;
     private Maze maze;
 
-    int XnumOfSquares = (SnakeGame.xPixelMaxDimension / SnakeGame.squareSize);
-    int YnumOfSquares = (SnakeGame.yPixelMaxDimension/SnakeGame.squareSize);
-    int squareSize = SnakeGame.squareSize;
-
-
-
+    private boolean turnOffMaze = false;
 	
 	DrawSnakeGamePanel(Snake s, Kibble k, Score sc, Maze m){
 		this.snake = s;
@@ -108,7 +102,10 @@ public class DrawSnakeGamePanel extends JPanel {
 		displayGameGrid(g);
 		displaySnake(g);
 		displayKibble(g);
-        maze.displayMaze(g);
+
+        if (turnOffMaze == false){
+            maze.displayMaze(g);
+        }
 	}
 
 

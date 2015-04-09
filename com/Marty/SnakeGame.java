@@ -35,10 +35,18 @@ public class SnakeGame {
 	//Using constant names instead makes it easier to keep it straight. Refer to these variables 
 	//using statements such as SnakeGame.GAME_OVER
 
+    static final int LV_ONE = 1;
+    static final int LV_TWO = 2;
+    static final int LV_THREE = 3;
+    static final int LV_FOUR = 4;
+    static final int LV_FIVE = 5;
+
 	//TODO INITIALIZE GAME WINING PARAMETERS
 
 	private static int gameStage = BEFORE_GAME;  //use this to figure out what should be happening. 
 	//Other classes like Snake and DrawSnakeGamePanel will need to query this, and change it's value
+
+    private static int gameLevel = LV_ONE;
 
 	protected static long clockInterval = 500; //controls game speed
 	//Every time the clock ticks, the snake moves
@@ -109,6 +117,9 @@ public class SnakeGame {
 		});
 	}
 
+    public static int getGameLevel(){
+        return gameLevel;
+    }
 
 
 	public static int getGameStage() {

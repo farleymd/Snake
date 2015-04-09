@@ -9,20 +9,26 @@ import java.util.*;
  */
 public class Maze extends JPanel {
 
+    //TODO MAKE SURE KIBBLE DOESN'T END UP IN WALLS
+    //TODO WALL HIT EQUALS END GAME
+
     Random rnd = new Random();
+
+    private int gameLevel = SnakeGame.getGameLevel();
 
     int XnumOfSquares;
     int YnumOfSquares;
     int squareSize;
 
-    int xStarting;
-    int yStarting;
-
     int xStart;
     int yStart;
 
-    ArrayList<Integer> firstWall = new ArrayList<Integer>();
-    ArrayList<Integer> secondWall = new ArrayList<Integer>();
+    ArrayList<Integer> wall1 = new ArrayList<Integer>();
+    ArrayList<Integer> wall2 = new ArrayList<Integer>();
+    ArrayList<Integer> wall3 = new ArrayList<Integer>();
+    ArrayList<Integer> wall4 = new ArrayList<Integer>();
+    ArrayList<Integer> wall5 = new ArrayList<Integer>();
+    ArrayList<Integer> wall6 = new ArrayList<Integer>();
 
     public Maze(int maxX, int maxY, int squareSize){
         this.XnumOfSquares = maxX;
@@ -32,48 +38,180 @@ public class Maze extends JPanel {
         initialization();
     }
 
-    public void displayMaze(Graphics g){
-        g.setColor(Color.black);
+    protected void initialization(){
 
-        buildLine(g);
+        switch(gameLevel){
+            case 1:{
+                //add two walls
+                wall1.add(0, buildTheWallX());
+                wall1.add(1, buildTheWallY());
+
+                wall2.add(0, buildTheWallX());
+                wall2.add(1, buildTheWallY());
+                break;
+            }
+            case 2:{
+                wall1.add(0, buildTheWallX());
+                wall1.add(1, buildTheWallY());
+
+                wall2.add(0, buildTheWallX());
+                wall2.add(1, buildTheWallY());
+
+                wall3.add(0, buildTheWallX());
+                wall3.add(1, buildTheWallY());
+                break;
+            }
+            case 3:{
+                //add 4 walls
+                wall1.add(0, buildTheWallX());
+                wall1.add(1, buildTheWallY());
+
+                wall2.add(0, buildTheWallX());
+                wall2.add(1, buildTheWallY());
+
+                wall3.add(0, buildTheWallX());
+                wall3.add(1, buildTheWallY());
+
+                wall4.add(0, buildTheWallX());
+                wall4.add(1, buildTheWallY());
+                break;
+            }
+            case 4:{
+                //add 5 walls
+                wall1.add(0, buildTheWallX());
+                wall1.add(1, buildTheWallY());
+
+                wall2.add(0, buildTheWallX());
+                wall2.add(1, buildTheWallY());
+
+                wall3.add(0, buildTheWallX());
+                wall3.add(1, buildTheWallY());
+
+                wall4.add(0, buildTheWallX());
+                wall4.add(1, buildTheWallY());
+
+                wall5.add(0, buildTheWallX());
+                wall5.add(1, buildTheWallY());
+                break;
+            }
+            case 5: {
+                //add 6 walls
+                wall1.add(0, buildTheWallX());
+                wall1.add(1, buildTheWallY());
+
+                wall2.add(0, buildTheWallX());
+                wall2.add(1, buildTheWallY());
+
+                wall3.add(0, buildTheWallX());
+                wall3.add(1, buildTheWallY());
+
+                wall4.add(0, buildTheWallX());
+                wall4.add(1, buildTheWallY());
+
+                wall5.add(0, buildTheWallX());
+                wall5.add(1, buildTheWallY());
+
+                wall6.add(0, buildTheWallX());
+                wall6.add(1, buildTheWallY());
+                break;
+            }
+            default:
+                break;
+        }
 
     }
 
-    public void initialization(){
-
+    private int buildTheWallX(){
         int xRandom = rnd.nextInt(XnumOfSquares);
-        int yRandom = rnd.nextInt(YnumOfSquares);
-
         xStart = xRandom * squareSize;
+
+        return xStart;
+    }
+
+    private int buildTheWallY(){
+        int yRandom = rnd.nextInt(YnumOfSquares);
         yStart = yRandom * squareSize;
 
-        firstWall.add(0,xStart);
-        firstWall.add(1,yStart);
-
-        int xRandom2 = rnd.nextInt(XnumOfSquares);
-        int yRandom2 = rnd.nextInt(YnumOfSquares);
-
-        int xStart2 = xRandom2 * squareSize;
-        int yStart2 = yRandom2 * squareSize;
-
-        secondWall.add(0,xStart2);
-        secondWall.add(1,yStart2);
-
+        return yStart;
     }
 
-    public void buildLine(Graphics g){
-        g.fillRect(firstWall.get(0), firstWall.get(1), squareSize, squareSize);
-        g.fillRect(firstWall.get(0), firstWall.get(1) + 30, squareSize, squareSize);
-        g.fillRect(firstWall.get(0), firstWall.get(1) + 60, squareSize, squareSize);
+    public void displayMaze(Graphics g) {
+        g.setColor(Color.black);
 
-        g.fillRect(secondWall.get(0), secondWall.get(1), squareSize, squareSize);
-        g.fillRect(secondWall.get(0), secondWall.get(1) + 30, squareSize, squareSize);
-        g.fillRect(secondWall.get(0), secondWall.get(1) + 60, squareSize, squareSize);
+        switch (gameLevel) {
+            case 1: {
+                buildLine(g, wall1);
+                buildLeftL(g, wall2);
+                break;
+            }
+            case 2: {
+                buildLine(g, wall1);
+                buildLeftL(g, wall2);
+                buildRightL(g, wall3);
+                break;
+            }
+            case 3: {
+                buildLine(g, wall1);
+                buildLeftL(g, wall2);
+                buildRightL(g, wall3);
+                buildLine(g, wall4);
+                break;
+            }
+            case 4: {
+                buildLine(g, wall1);
+                buildLeftL(g, wall2);
+                buildRightL(g, wall3);
+                buildLine(g, wall4);
+                buildRightL(g,wall5);
+                break;
+            }
+            case 5: {
+                buildLine(g, wall1);
+                buildLeftL(g, wall2);
+                buildRightL(g, wall3);
+                buildLine(g, wall4);
+                buildRightL(g,wall5);
+                buildTetris(g, wall6);
+                break;
+            }
+            default:
+                break;
 
+        }
+    }
 
-//        for (int s = 1; s < 4; s++){
-//            g.fillRect(xStart, yStart + (30*s), squareSize, squareSize);
-//        }
+    private void buildLine(Graphics g, ArrayList<Integer> wall){
+        g.fillRect(wall.get(0), wall.get(1), squareSize, squareSize);
+        g.fillRect(wall.get(0), wall.get(1) + 30, squareSize, squareSize);
+        g.fillRect(wall.get(0), wall.get(1) + 60, squareSize, squareSize);
+    }
+
+    private void buildLeftL(Graphics g, ArrayList<Integer> wall){
+        g.fillRect(wall.get(0), wall.get(1), squareSize, squareSize);
+        g.fillRect(wall.get(0), wall.get(1)+30, squareSize, squareSize);
+        g.fillRect(wall.get(0), wall.get(1)+60, squareSize, squareSize);
+        g.fillRect(wall.get(0), wall.get(1)+90, squareSize, squareSize);
+        g.fillRect(wall.get(0)+30, wall.get(1)+90, squareSize, squareSize);
+        g.fillRect(wall.get(0)+60, wall.get(1)+90, squareSize, squareSize);
+    }
+
+    private void buildRightL(Graphics g, ArrayList<Integer> wall){
+        g.fillRect(wall.get(0), wall.get(1), squareSize, squareSize);
+        g.fillRect(wall.get(0), wall.get(1)+30, squareSize, squareSize);
+        g.fillRect(wall.get(0), wall.get(1)+60, squareSize, squareSize);
+        g.fillRect(wall.get(0), wall.get(1)+90, squareSize, squareSize);
+        g.fillRect(wall.get(0)-30, wall.get(1)+90, squareSize, squareSize);
+        g.fillRect(wall.get(0)-60, wall.get(1)+90, squareSize, squareSize);
+    }
+
+    private void buildTetris(Graphics g, ArrayList<Integer> wall){
+        g.fillRect(wall.get(0), wall.get(1), squareSize, squareSize);
+        g.fillRect(wall.get(0)+30, wall.get(1), squareSize, squareSize);
+        g.fillRect(wall.get(0)+60, wall.get(1), squareSize, squareSize);
+        g.fillRect(wall.get(0)+90, wall.get(1), squareSize, squareSize);
+        g.fillRect(wall.get(0)+60, wall.get(1)-30, squareSize, squareSize);
+        g.fillRect(wall.get(0)+90, wall.get(1)-30, squareSize, squareSize);
+
 
     }
 
