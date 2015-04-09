@@ -3,6 +3,7 @@ package com.Marty;
 import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.Random;
 
 /**
@@ -22,7 +23,7 @@ public class Maze extends JPanel {
     int xStart;
     int yStart;
 
-    int[] coordinates;
+    LinkedList<Point> wallCoordinates = new LinkedList<Point>();
 
     public Maze(int maxX, int maxY, int squareSize){
         this.XnumOfSquares = maxX;
@@ -38,6 +39,7 @@ public class Maze extends JPanel {
         getStartingPoint();
 
         buildLine(g);
+
 
 //        g.fillRect(xStart,yStart,squareSize,squareSize);
 //        g.fillRect(xStart,yStart+30,squareSize,squareSize);

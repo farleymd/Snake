@@ -22,6 +22,8 @@ public class SnakeGame {
 
 	protected static Score score;
 
+    protected static Maze maze;
+
 
 	static final int BEFORE_GAME = 1;
 	static final int DURING_GAME = 2;
@@ -59,7 +61,7 @@ public class SnakeGame {
 		snakeFrame.setVisible(true);
 		snakeFrame.setResizable(false);
 
-		snakePanel = new DrawSnakeGamePanel(snake, kibble, score);
+		snakePanel = new DrawSnakeGamePanel(snake, kibble, score, maze);
 		snakePanel.setFocusable(true);
 		snakePanel.requestFocusInWindow(); //required to give this component the focus so it can generate KeyEvents
 
@@ -79,6 +81,7 @@ public class SnakeGame {
 		snake = new Snake(xSquares, ySquares, squareSize);
 		kibble = new Kibble(snake);
 		score = new Score();
+        maze = new Maze (xSquares,ySquares,squareSize);
 
 		gameStage = BEFORE_GAME;
 	}

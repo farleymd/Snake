@@ -19,18 +19,20 @@ public class DrawSnakeGamePanel extends JPanel {
 	private Snake snake;
 	private Kibble kibble;
 	private Score score;
+    private Maze maze;
 
     int XnumOfSquares = (SnakeGame.xPixelMaxDimension / SnakeGame.squareSize);
     int YnumOfSquares = (SnakeGame.yPixelMaxDimension/SnakeGame.squareSize);
     int squareSize = SnakeGame.squareSize;
 
-    private Maze maze = new Maze (XnumOfSquares,YnumOfSquares,squareSize);
+
 
 	
-	DrawSnakeGamePanel(Snake s, Kibble k, Score sc){
+	DrawSnakeGamePanel(Snake s, Kibble k, Score sc, Maze m){
 		this.snake = s;
 		this.kibble = k;
 		this.score = sc;
+        this.maze = m;
 
 	}
 	
