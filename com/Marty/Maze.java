@@ -2,9 +2,7 @@ package com.Marty;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Created by Marty on 4/8/2015.
@@ -23,53 +21,60 @@ public class Maze extends JPanel {
     int xStart;
     int yStart;
 
-    LinkedList<Point> wallCoordinates = new LinkedList<Point>();
+    ArrayList<Integer> firstWall = new ArrayList<Integer>();
+    ArrayList<Integer> secondWall = new ArrayList<Integer>();
 
     public Maze(int maxX, int maxY, int squareSize){
         this.XnumOfSquares = maxX;
         this.YnumOfSquares = maxY;
         this.squareSize = squareSize;
 
-        getRandonNumber();
+        initialization();
     }
 
     public void displayMaze(Graphics g){
         g.setColor(Color.black);
 
-        getStartingPoint();
-
         buildLine(g);
 
-
-//        g.fillRect(xStart,yStart,squareSize,squareSize);
-//        g.fillRect(xStart,yStart+30,squareSize,squareSize);
-//        g.fillRect(xStart,yStart+60,squareSize,squareSize);
-
     }
 
-    public void getRandonNumber(){
+    public void initialization(){
 
-        xStarting = rnd.nextInt(XnumOfSquares);
-        yStarting = rnd.nextInt(YnumOfSquares);
+        int xRandom = rnd.nextInt(XnumOfSquares);
+        int yRandom = rnd.nextInt(YnumOfSquares);
 
-    }
+        xStart = xRandom * squareSize;
+        yStart = yRandom * squareSize;
 
-    public void getStartingPoint(){
-        xStart = xStarting * squareSize;
-        yStart = yStarting * squareSize;
+        firstWall.add(0,xStart);
+        firstWall.add(1,yStart);
+
+        int xRandom2 = rnd.nextInt(XnumOfSquares);
+        int yRandom2 = rnd.nextInt(YnumOfSquares);
+
+        int xStart2 = xRandom2 * squareSize;
+        int yStart2 = yRandom2 * squareSize;
+
+        secondWall.add(0,xStart2);
+        secondWall.add(1,yStart2);
+
     }
 
     public void buildLine(Graphics g){
-        getStartingPoint();
+        g.fillRect(firstWall.get(0), firstWall.get(1), squareSize, squareSize);
+        g.fillRect(firstWall.get(0), firstWall.get(1) + 30, squareSize, squareSize);
+        g.fillRect(firstWall.get(0), firstWall.get(1) + 60, squareSize, squareSize);
 
-        for (int s = 1; s < 4; s++){
-            g.fillRect(xStart, yStart + (30*s), squareSize, squareSize);
-        }
+        g.fillRect(secondWall.get(0), secondWall.get(1), squareSize, squareSize);
+        g.fillRect(secondWall.get(0), secondWall.get(1) + 30, squareSize, squareSize);
+        g.fillRect(secondWall.get(0), secondWall.get(1) + 60, squareSize, squareSize);
+
+
+//        for (int s = 1; s < 4; s++){
+//            g.fillRect(xStart, yStart + (30*s), squareSize, squareSize);
+//        }
 
     }
 
-
-
-
-    //TODO ADD MAZE FUNCTIONALITY
 }
