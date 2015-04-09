@@ -115,6 +115,8 @@ public class DrawSnakeGamePanel extends JPanel {
 		for (int x=0; x <= maxX ; x+= squareSize){
 			g.drawLine(x, 0, x, maxY);
 		}
+
+		//TODO ADD MAZE
 	}
 
 	private void displayKibble(Graphics g) {
