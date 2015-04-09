@@ -2,6 +2,7 @@ package com.Marty;
 
 import java.awt.*;
 import java.util.LinkedList;
+import java.util.Random;
 
 import javax.swing.*;
 
@@ -11,18 +12,26 @@ import javax.swing.*;
  *
  */
 public class DrawSnakeGamePanel extends JPanel {
-	
+    Random rnd = new Random();
+
 	private static int gameStage = SnakeGame.BEFORE_GAME;  //use this to figure out what to paint
 	
 	private Snake snake;
 	private Kibble kibble;
 	private Score score;
 
+    int XnumOfSquares = (SnakeGame.xPixelMaxDimension / SnakeGame.squareSize);
+    int YnumOfSquares = (SnakeGame.yPixelMaxDimension/SnakeGame.squareSize);
+    int squareSize = SnakeGame.squareSize;
+
+    private Maze maze = new Maze (XnumOfSquares,YnumOfSquares,squareSize);
+
 	
 	DrawSnakeGamePanel(Snake s, Kibble k, Score sc){
 		this.snake = s;
 		this.kibble = k;
 		this.score = sc;
+
 	}
 	
 	public Dimension getPreferredSize() {
@@ -65,9 +74,7 @@ public class DrawSnakeGamePanel extends JPanel {
 			default:  //FINDBUGS add default to switch
 				break;
         }
-        
-        
-        
+
     }
 
 	private void displayGameWon(Graphics g) {
@@ -99,7 +106,9 @@ public class DrawSnakeGamePanel extends JPanel {
 		displayGameGrid(g);
 		displaySnake(g);
 		displayKibble(g);
+        maze.displayMaze(g);
 	}
+
 
 	private void displayGameGrid(Graphics g) {
 
@@ -122,7 +131,6 @@ public class DrawSnakeGamePanel extends JPanel {
 			g.drawLine(x, 0, x, maxY);
 		}
 
-		//TODO ADD MAZE
 	}
 
 	private void displayKibble(Graphics g) {
@@ -133,7 +141,7 @@ public class DrawSnakeGamePanel extends JPanel {
 		int x = kibble.getKibbleX() * SnakeGame.squareSize;
 		int y = kibble.getKibbleY() * SnakeGame.squareSize;
 
-		g.fillRect(x+1, y+1, SnakeGame.squareSize-2, SnakeGame.squareSize-2);
+		g.fillRect(x + 1, y + 1, SnakeGame.squareSize - 2, SnakeGame.squareSize - 2);
 		
 	}
 
@@ -159,7 +167,7 @@ public class DrawSnakeGamePanel extends JPanel {
 
         //SnakeStartGUI snakeStartGUI = new SnakeStartGUI();
 
-        g.drawString("Press any key to begin!",100,200);
+        g.drawString("Press any key to begin!", 100, 200);
         g.drawString("Press q to quit the game",100,300);
 		g.drawString("Press p to pause the game", 100, 400);
     	}
