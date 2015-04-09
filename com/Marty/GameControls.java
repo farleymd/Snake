@@ -1,7 +1,9 @@
 package com.Marty;
 
+import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
 
 public class GameControls implements KeyListener{
 	
@@ -83,7 +85,7 @@ public class GameControls implements KeyListener{
 		char r = 'r';
 		char R = 'R';
 		if( keyPressed == q || keyPressed == Q){
-			System.exit(0);    //quit if user presses the q key.
+			SnakeGame.closeGame();     //FINDBUGS: replace System.exit();
 		} else if (keyPressed == p || keyPressed == P){
 			SnakeGame.setGameStage(SnakeGame.PAUSE_GAME);
 		} else if (keyPressed == r || keyPressed == R){

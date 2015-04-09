@@ -62,6 +62,8 @@ public class DrawSnakeGamePanel extends JPanel {
 				displayPause(g);
 				break;
 			}
+			default:  //FINDBUGS add default to switch
+				break;
         }
         
         
@@ -159,7 +161,7 @@ public class DrawSnakeGamePanel extends JPanel {
 
         g.drawString("Press any key to begin!",100,200);
         g.drawString("Press q to quit the game",100,300);
-		g.drawString("Press p to pause the game", 100, 300);
+		g.drawString("Press p to pause the game", 100, 400);
     	}
 
 	private void displayPause(Graphics g){

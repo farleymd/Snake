@@ -38,19 +38,17 @@ public class GameClock extends TimerTask {
 				break;
 			}
 			case SnakeGame.GAME_OVER: {
-				this.cancel();		//stop the Timer
-				break;	
+				//fall through    //FINDBUGS code duplication
 			}
 			case SnakeGame.GAME_WON: {
-				this.cancel();   //stop timer
-				break;
+				//fall through   //FINDBUGS code duplication
 			}
 			case SnakeGame.PAUSE_GAME:{
 				this.cancel();  //stop the timer while game is paused
 				break;
 			}
-			
-		
+			default:
+				break;
 		}
 				
 		gamePanel.repaint();		//In every circumstance, must update screen

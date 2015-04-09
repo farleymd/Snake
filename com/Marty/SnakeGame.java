@@ -1,5 +1,6 @@
 package com.Marty;
 
+import java.awt.event.WindowEvent;
 import java.util.Timer;
 
 import javax.swing.*;
@@ -121,5 +122,9 @@ public class SnakeGame {
 	public static void setGameStage(int gameStage) {
 
         SnakeGame.gameStage = gameStage;
+	}
+
+	public static void closeGame(){
+		snakeFrame.dispatchEvent(new WindowEvent(snakeFrame, WindowEvent.WINDOW_CLOSING));
 	}
 }
