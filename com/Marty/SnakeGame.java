@@ -21,13 +21,18 @@ public class SnakeGame {
 
 	protected static Score score;
 
+
 	static final int BEFORE_GAME = 1;
 	static final int DURING_GAME = 2;
 	static final int GAME_OVER = 3;
-	static final int GAME_WON = 4;   //The values are not important. The important thing is to use the constants 
+	static final int GAME_WON = 4;
+	static final int PAUSE_GAME = 5;
+	 //The values are not important. The important thing is to use the constants
 	//instead of the values so you are clear what you are setting. Easy to forget what number is Game over vs. game won
 	//Using constant names instead makes it easier to keep it straight. Refer to these variables 
-	//using statements such as SnakeGame.GAME_OVER 
+	//using statements such as SnakeGame.GAME_OVER
+
+	//TODO INITIALIZE GAME WINING PARAMETERS
 
 	private static int gameStage = BEFORE_GAME;  //use this to figure out what should be happening. 
 	//Other classes like Snake and DrawSnakeGamePanel will need to query this, and change it's value
@@ -81,6 +86,12 @@ public class SnakeGame {
 		Timer timer = new Timer();
 		GameClock clockTick = new GameClock(snake, kibble, score, snakePanel);
 		timer.scheduleAtFixedRate(clockTick, 0 , clockInterval);
+	}
+
+	public static void resumeGame(){
+		Timer timer = new Timer();
+		GameClock clockTick = new GameClock(snake,kibble,score,snakePanel);
+		timer.scheduleAtFixedRate(clockTick, 0, clockInterval);
 	}
 
 	public static void main(String[] args) {

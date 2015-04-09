@@ -38,11 +38,15 @@ public class GameClock extends TimerTask {
 				break;
 			}
 			case SnakeGame.GAME_OVER: {
-				this.cancel();		//Stop the Timer	
+				this.cancel();		//stop the Timer
 				break;	
 			}
 			case SnakeGame.GAME_WON: {
 				this.cancel();   //stop timer
+				break;
+			}
+			case SnakeGame.PAUSE_GAME:{
+				this.cancel();  //stop the timer while game is paused
 				break;
 			}
 			

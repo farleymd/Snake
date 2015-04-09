@@ -58,6 +58,10 @@ public class DrawSnakeGamePanel extends JPanel {
         	displayGameWon(g);
         	break;
         }
+			case 5:{
+				displayPause(g);
+				break;
+			}
         }
         
         
@@ -155,6 +159,12 @@ public class DrawSnakeGamePanel extends JPanel {
 
         g.drawString("Press any key to begin!",100,200);
         g.drawString("Press q to quit the game",100,300);
+		g.drawString("Press p to pause the game", 100, 300);
     	}
+
+	private void displayPause(Graphics g){
+
+		g.drawString("Your game is paused. Press r to Resume.", 100, 200);
+	}
 }
 

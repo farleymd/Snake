@@ -76,9 +76,19 @@ public class GameControls implements KeyListener{
 		char keyPressed = ev.getKeyChar();
 		char q = 'q';
 		char Q = 'Q';
+
+		char p = 'p';
+		char P = 'P';
+
+		char r = 'r';
+		char R = 'R';
 		if( keyPressed == q || keyPressed == Q){
 			System.exit(0);    //quit if user presses the q key.
+		} else if (keyPressed == p || keyPressed == P){
+			SnakeGame.setGameStage(SnakeGame.PAUSE_GAME);
+		} else if (keyPressed == r || keyPressed == R){
+			SnakeGame.setGameStage(SnakeGame.DURING_GAME);
+			SnakeGame.resumeGame();
 		}
 	}
-
 }
