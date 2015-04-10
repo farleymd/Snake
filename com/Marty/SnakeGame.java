@@ -46,7 +46,7 @@ public class SnakeGame {
 	private static int gameStage = BEFORE_GAME;  //use this to figure out what should be happening. 
 	//Other classes like Snake and DrawSnakeGamePanel will need to query this, and change it's value
 
-    private static int gameLevel = LV_ONE;
+    private static int gameLevel = LV_FIVE;
 
 	protected static long clockInterval = 500; //controls game speed
 	//Every time the clock ticks, the snake moves
@@ -87,9 +87,10 @@ public class SnakeGame {
 		ySquares = yPixelMaxDimension / squareSize;
 
 		snake = new Snake(xSquares, ySquares, squareSize);
-		kibble = new Kibble(snake);
+        maze = new Maze (xSquares,ySquares,squareSize);   //maze must be initialized before kibble
+		kibble = new Kibble(snake, maze);
 		score = new Score();
-        maze = new Maze (xSquares,ySquares,squareSize);
+
 
 		gameStage = BEFORE_GAME;
 	}

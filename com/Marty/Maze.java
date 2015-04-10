@@ -9,7 +9,6 @@ import java.util.*;
  */
 public class Maze extends JPanel {
 
-    //TODO MAKE SURE KIBBLE DOESN'T END UP IN WALLS
     //TODO WALL HIT EQUALS END GAME
 
     Random rnd = new Random();
@@ -30,12 +29,18 @@ public class Maze extends JPanel {
     ArrayList<Integer> wall5 = new ArrayList<Integer>();
     ArrayList<Integer> wall6 = new ArrayList<Integer>();
 
+    ArrayList<Integer> wallBlockX = new ArrayList<Integer>();
+    ArrayList<Integer> wallBlockY = new ArrayList<Integer>();
+
     public Maze(int maxX, int maxY, int squareSize){
         this.XnumOfSquares = maxX;
         this.YnumOfSquares = maxY;
         this.squareSize = squareSize;
 
         initialization();
+
+        wallBlockX();
+        wallBlockY();
     }
 
     protected void initialization(){
@@ -214,17 +219,95 @@ public class Maze extends JPanel {
 
     }
 
-    public ArrayList kibbleBlockX(){
-        ArrayList<Integer> kibbleBlockX = new ArrayList<Integer>();
+    private void wallBlockX(){
 
-        kibbleBlockX.add(0, wall1.get(0));
-        kibbleBlockX.add(0, wall2.get(0));
-        kibbleBlockX.add(0, wall3.get(0));
-        kibbleBlockX.add(0, wall4.get(0));
-        kibbleBlockX.add(0, wall5.get(0));
-        kibbleBlockX.add(0, wall6.get(0));
-
-        return kibbleBlockX;
+        switch(gameLevel){
+            case 1:{
+                wallBlockX.add(0, (wall1.get(0)/squareSize));  //kibble is placed based on squares
+                wallBlockX.add(1, (wall2.get(0)/squareSize));
+                break;
+            }
+            case 2: {
+                wallBlockX.add(0, (wall1.get(0)/squareSize));
+                wallBlockX.add(1, (wall2.get(0)/squareSize));
+                wallBlockX.add(2, (wall3.get(0)/squareSize));
+                break;
+            }case 3: {
+                wallBlockX.add(0, (wall1.get(0)/squareSize));
+                wallBlockX.add(1, (wall2.get(0)/squareSize));
+                wallBlockX.add(2, (wall3.get(0)/squareSize));
+                wallBlockX.add(3, (wall4.get(0)/squareSize));
+                break;
+            }case 4: {
+                wallBlockX.add(0, (wall1.get(0)/squareSize));
+                wallBlockX.add(1, (wall2.get(0)/squareSize));
+                wallBlockX.add(2, (wall3.get(0)/squareSize));
+                wallBlockX.add(3, (wall4.get(0)/squareSize));
+                wallBlockX.add(4, (wall5.get(0)/squareSize));
+                break;
+            }case 5: {
+                wallBlockX.add(0, (wall1.get(0)/squareSize));
+                wallBlockX.add(1, (wall2.get(0)/squareSize));
+                wallBlockX.add(2, (wall3.get(0)/squareSize));
+                wallBlockX.add(3, (wall4.get(0)/squareSize));
+                wallBlockX.add(4, (wall5.get(0)/squareSize));
+                wallBlockX.add(5, (wall6.get(0)/squareSize));
+                break;
+            }
+            default:
+                break;
+            }
     }
+
+    private void wallBlockY(){
+        switch(gameLevel){
+            case 1:{
+                wallBlockX.add(0, (wall1.get(1)/squareSize));  //kibble is placed based on squares
+                wallBlockX.add(1, (wall2.get(1)/squareSize));
+                break;
+            }
+            case 2: {
+                wallBlockX.add(0, (wall1.get(1)/squareSize));
+                wallBlockX.add(1, (wall2.get(1)/squareSize));
+                wallBlockX.add(2, (wall3.get(1)/squareSize));
+                break;
+            }case 3: {
+                wallBlockX.add(0, (wall1.get(1)/squareSize));
+                wallBlockX.add(1, (wall2.get(1)/squareSize));
+                wallBlockX.add(2, (wall3.get(1)/squareSize));
+                wallBlockX.add(3, (wall4.get(1)/squareSize));
+                break;
+            }case 4: {
+                wallBlockX.add(0, (wall1.get(1)/squareSize));
+                wallBlockX.add(1, (wall2.get(1)/squareSize));
+                wallBlockX.add(2, (wall3.get(1)/squareSize));
+                wallBlockX.add(3, (wall4.get(1)/squareSize));
+                wallBlockX.add(4, (wall5.get(1)/squareSize));
+                break;
+            }case 5: {
+                wallBlockX.add(0, (wall1.get(1)/squareSize));
+                wallBlockX.add(1, (wall2.get(1)/squareSize));
+                wallBlockX.add(2, (wall3.get(1)/squareSize));
+                wallBlockX.add(3, (wall4.get(1)/squareSize));
+                wallBlockX.add(4, (wall5.get(1)/squareSize));
+                wallBlockX.add(5, (wall6.get(1)/squareSize));
+                break;
+            }
+            default:
+                break;
+        }
+    }
+
+    public ArrayList<Integer> getWallBlockX(){
+
+        return wallBlockX;
+    }
+
+    public ArrayList<Integer> getWallBlockY(){
+
+        return wallBlockY;
+    }
+
+
 
 }
