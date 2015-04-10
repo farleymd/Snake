@@ -15,6 +15,8 @@ public class Kibble {
     private ArrayList<Integer> wallBlockX = new ArrayList<Integer>();
     private ArrayList<Integer> wallBlockY = new ArrayList<Integer>();
 
+    private ArrayList<Integer> wallCoordinates = new ArrayList<Integer>();
+
     private Maze maze;
 
 
@@ -25,6 +27,8 @@ public class Kibble {
         this.maze = m;
 
         buildWallBlocks();
+
+        buildWallCoords();
 
         moveKibble(s);
 
@@ -43,20 +47,35 @@ public class Kibble {
 
             //check if kibble X or Y intersects with walls
 
-            for (int x = 0; x < wallBlockX.size(); x++){
-                    int wallX = wallBlockX.get(x);
+            //TODO KIBBLE STILL INTERACTING WITH WALLS
 
-                if (wallX == kibbleX){
-                    kibbleX = rng.nextInt(SnakeGame.xSquares);
-                }
-            }
+//            for (int x = 0; x < wallBlockX.size(); x++){
+//                    int wallX = wallBlockX.get(x);
+//
+//                if (wallX == kibbleX){
+//                    kibbleX = rng.nextInt(SnakeGame.xSquares);
+//                }
+//            }
+//
+//
+//            for (int y =0; y < wallBlockY.size(); y++) {
+//                int wallY = wallBlockY.get(y);
+//
+//                if (wallY == kibbleY) {
+//                    kibbleY = rng.nextInt(SnakeGame.xSquares);
+//                }
+//            }
 
+            for (int z = 0; z < wallCoordinates.size(); z++){
+                int wallTester = wallCoordinates.get(z);
 
-            for (int y =0; y < wallBlockY.size(); y++) {
-                int wallY = wallBlockY.get(y);
+                while (wallTester == kibbleX || wallTester == kibbleY){
+                    if (wallTester == kibbleX){
+                        kibbleX = rng.nextInt(SnakeGame.xSquares);
+                    } else if (wallTester == kibbleY){
+                        kibbleY = rng.nextInt(SnakeGame.xSquares);
 
-                if (wallY == kibbleY) {
-                    kibbleY = rng.nextInt(SnakeGame.xSquares);
+                    }
                 }
             }
 
@@ -68,6 +87,10 @@ public class Kibble {
         wallBlockX = maze.getWallBlockX();
         wallBlockY = maze.getWallBlockY();
 
+    }
+
+    private void buildWallCoords(){
+        wallCoordinates = maze.getWallCoordinates();
     }
 
 	public int getKibbleX() {
