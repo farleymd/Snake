@@ -87,7 +87,7 @@ public class SnakeGame {
 		ySquares = yPixelMaxDimension / squareSize;
 
 		snake = new Snake(xSquares, ySquares, squareSize);
-        maze = new Maze (xSquares,ySquares,squareSize);   //maze must be initialized before kibble
+        maze = new Maze (snake, xSquares,ySquares,squareSize);   //maze must be initialized before kibble
 		kibble = new Kibble(snake, maze);
 		score = new Score();
 

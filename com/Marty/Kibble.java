@@ -44,16 +44,19 @@ public class Kibble {
             //check if kibble X or Y intersects with walls
 
             for (int x = 0; x < wallBlockX.size(); x++){
-                for (int y =0; y < wallBlockY.size(); y++){
                     int wallX = wallBlockX.get(x);
-                    int wallY = wallBlockY.get(y);
 
                 if (wallX == kibbleX){
                     kibbleX = rng.nextInt(SnakeGame.xSquares);
                 }
-                    if (wallY == kibbleY){
-                        kibbleY = rng.nextInt(SnakeGame.xSquares);
-                    }
+            }
+
+
+            for (int y =0; y < wallBlockY.size(); y++) {
+                int wallY = wallBlockY.get(y);
+
+                if (wallY == kibbleY) {
+                    kibbleY = rng.nextInt(SnakeGame.xSquares);
                 }
             }
 

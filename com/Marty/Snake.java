@@ -30,8 +30,8 @@ public class Snake {
 
 	private int justAteMustGrowThisMuch = 0;
 
-	private int maxX, maxY, squareSize;  
-	private int snakeHeadX, snakeHeadY; //store coordinates of head - first segment
+	private int maxX, maxY, squareSize;
+    private int snakeHeadX, snakeHeadY; //store coordinates of head - first segment
 
 	public Snake(int maxX, int maxY, int squareSize){
 		this.maxX = maxX;
@@ -291,6 +291,15 @@ public class Snake {
 	protected boolean didEatTail(){
 		return ateTail;
 	}
+
+    public int getSnakeHeadX() {
+        return snakeHeadX;
+    }
+
+    public int getSnakeHeadY() {
+        return snakeHeadY;
+    }
+
 
 	public boolean isSnakeSegment(int kibbleX, int kibbleY) {
 		if (snakeSquares[kibbleX][kibbleY] == 0) {
