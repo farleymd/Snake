@@ -8,8 +8,8 @@ import javax.swing.*;
 
 public class SnakeGame {
 
-	public final static int xPixelMaxDimension = 501;  //Pixels in window. 501 to have 50-pixel squares plus 1 to draw a border on last square
-	public final static int yPixelMaxDimension = 501;
+	public final static int xPixelMaxDimension = 600;  //Pixels in window. 501 to have 50-pixel squares plus 1 to draw a border on last square
+	public final static int yPixelMaxDimension = 600;
 
 	public static int xSquares ;
 	public static int ySquares ;
@@ -46,7 +46,7 @@ public class SnakeGame {
 	private static int gameStage = BEFORE_GAME;  //use this to figure out what should be happening. 
 	//Other classes like Snake and DrawSnakeGamePanel will need to query this, and change it's value
 
-    private static int gameLevel = LV_FIVE;
+    private static int gameLevel = LV_ONE;
 
 	protected static long clockInterval = 300; //controls game speed
 	//Every time the clock ticks, the snake moves
@@ -86,8 +86,8 @@ public class SnakeGame {
 		xSquares = xPixelMaxDimension / squareSize;
 		ySquares = yPixelMaxDimension / squareSize;
 
-		snake = new Snake(xSquares, ySquares, squareSize);
-        maze = new Maze (snake, xSquares,ySquares,squareSize);   //maze must be initialized before kibble
+        maze = new Maze (xSquares,ySquares,squareSize);  //maze must be initiated before kibble and snake
+        snake = new Snake(xSquares, ySquares, squareSize, maze, snakePanel);
 		kibble = new Kibble(snake, maze);
 		score = new Score();
 
@@ -97,13 +97,13 @@ public class SnakeGame {
 
 	protected static void newGame() {
 		Timer timer = new Timer();
-		GameClock clockTick = new GameClock(snake, kibble, score, snakePanel);
+		GameClock clockTick = new GameClock(snake, kibble, score, snakePanel, maze);
 		timer.scheduleAtFixedRate(clockTick, 0 , clockInterval);
 	}
 
 	public static void resumeGame(){
 		Timer timer = new Timer();
-		GameClock clockTick = new GameClock(snake,kibble,score,snakePanel);
+		GameClock clockTick = new GameClock(snake,kibble,score,snakePanel, maze);
 		timer.scheduleAtFixedRate(clockTick, 0, clockInterval);
 	}
 

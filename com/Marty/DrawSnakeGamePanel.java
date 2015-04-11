@@ -20,13 +20,15 @@ public class DrawSnakeGamePanel extends JPanel {
 	private Score score;
     private Maze maze;
 
-    private boolean turnOffMaze = false;
+    private boolean turnOffMaze;
 	
 	DrawSnakeGamePanel(Snake s, Kibble k, Score sc, Maze m){
 		this.snake = s;
 		this.kibble = k;
 		this.score = sc;
         this.maze = m;
+
+        getMazeChoice();
 
 	}
 	
@@ -176,5 +178,10 @@ public class DrawSnakeGamePanel extends JPanel {
 
 		g.drawString("Your game is paused. Press r to Resume.", 100, 200);
 	}
+
+    private void getMazeChoice() {
+
+        turnOffMaze = maze.getMazeChoice();
+    }
 }
 

@@ -1,6 +1,7 @@
 package com.Marty;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Snake {
@@ -8,12 +9,16 @@ public class Snake {
 	final int DIRECTION_UP = 0;
 	final int DIRECTION_DOWN = 1;
 	final int DIRECTION_LEFT = 2;
-	final int DIRECTION_RIGHT = 3;  //These are completely arbitrary numbers. 
+	final int DIRECTION_RIGHT = 3;  //These are completely arbitrary numbers.
+
+    private Maze maze;
+    private DrawSnakeGamePanel snakePanel;
 
 	private boolean hitWall = false;
 	private boolean ateTail = false;
 
     private boolean turnOffWarp = false;  //Variable to hold user's decision to turn Snake warping on or off
+    private boolean turnOffMaze;
 
 	private int snakeSquares[][];  //represents all of the squares on the screen
 	//NOT pixels!
@@ -33,15 +38,25 @@ public class Snake {
 	private int maxX, maxY, squareSize;
     private int snakeHeadX, snakeHeadY; //store coordinates of head - first segment
 
-	public Snake(int maxX, int maxY, int squareSize){
+    private ArrayList<Integer> wallCoordinates = new ArrayList<Integer>();  //arrayList to hold wall coordinates for snake to run into
+
+	public Snake(int maxX, int maxY, int squareSize, Maze m, DrawSnakeGamePanel snakePanel){
 		this.maxX = maxX;
 		this.maxY = maxY;
 		this.squareSize = squareSize;
+        this.maze = m;
+        this.snakePanel = snakePanel;
 		//Create and fill snakeSquares with 0s 
 		snakeSquares = new int[maxX][maxY];
 		fillSnakeSquaresWithZeros();
 		createStartSnake();
+        buildWallCoordinates();
+        getMazeChoice();
 	}
+
+    protected void buildWallCoordinates(){
+        wallCoordinates = maze.getWallCoordinates();
+    }
 
 
 	protected void createStartSnake(){
@@ -74,6 +89,10 @@ public class Snake {
 
     public boolean getWarpChoice(){
         return turnOffWarp;
+    }
+
+    private void getMazeChoice(){
+        turnOffMaze = maze.getMazeChoice();
     }
 
 	public LinkedList<Point> segmentsToDraw(){
@@ -208,6 +227,19 @@ public class Snake {
 				}
             }
         }
+
+        //Does the snake hit any of the maze walls?
+//        if (turnOffMaze == false){
+//            for (int i = 0; i < wallCoordinates.size(); i++){
+//                int wallBlock = wallCoordinates.get(i);
+//
+//                if (wallBlock == snakeHeadX || wallBlock == snakeHeadY){
+//                    hitWall = true;
+//                    SnakeGame.setGameStage(SnakeGame.GAME_OVER);
+//                    return;
+//                }
+//            }
+//        }
 
 
 

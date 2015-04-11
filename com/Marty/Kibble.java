@@ -1,6 +1,8 @@
 package com.Marty;
 
+import javax.xml.soap.Detail;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Kibble {
@@ -16,8 +18,11 @@ public class Kibble {
     private ArrayList<Integer> wallBlockY = new ArrayList<Integer>();
 
     private ArrayList<Integer> wallCoordinates = new ArrayList<Integer>();
+    List<List<Integer>> walls = new ArrayList<List<Integer>>();
 
     private Maze maze;
+
+    private boolean turnMazeOff;
 
 
     public Kibble(Snake s, Maze m){
@@ -26,7 +31,8 @@ public class Kibble {
 		//If in snake, try again
         this.maze = m;
 
-        buildWallBlocks();
+        getMazeChoice();
+
 
         buildWallCoords();
 
@@ -49,32 +55,30 @@ public class Kibble {
 
             //TODO KIBBLE STILL INTERACTING WITH WALLS
 
-//            for (int x = 0; x < wallBlockX.size(); x++){
-//                    int wallX = wallBlockX.get(x);
-//
-//                if (wallX == kibbleX){
-//                    kibbleX = rng.nextInt(SnakeGame.xSquares);
-//                }
-//            }
-//
-//
-//            for (int y =0; y < wallBlockY.size(); y++) {
-//                int wallY = wallBlockY.get(y);
-//
-//                if (wallY == kibbleY) {
-//                    kibbleY = rng.nextInt(SnakeGame.xSquares);
-//                }
-//            }
+            if (turnMazeOff == false){
+                //TODO if random number generates to wall coordinate previously in the array, BUG
 
-            for (int z = 0; z < wallCoordinates.size(); z++){
-                int wallTester = wallCoordinates.get(z);
+                for (int i = 0; i > walls.size(); i++){
+                    for (int j = 0; j < walls.get(i).size(); j++){
+                        int tester = walls.get(i).get(j);
+                    }
 
-                while (wallTester == kibbleX || wallTester == kibbleY){
-                    if (wallTester == kibbleX){
-                        kibbleX = rng.nextInt(SnakeGame.xSquares);
-                    } else if (wallTester == kibbleY){
-                        kibbleY = rng.nextInt(SnakeGame.xSquares);
+                }
 
+
+
+
+
+                for (int z = 0; z < wallCoordinates.size(); z++){
+                    int wallTester = wallCoordinates.get(z);
+
+                    while (wallTester == kibbleX || wallTester == kibbleY){
+                        if (wallTester == kibbleX){
+                            kibbleX = rng.nextInt(SnakeGame.xSquares);
+                        } else if (wallTester == kibbleY){
+                            kibbleY = rng.nextInt(SnakeGame.xSquares);
+
+                        }
                     }
                 }
             }
@@ -83,14 +87,19 @@ public class Kibble {
 		}
 	}
 
-    private void buildWallBlocks(){
-        wallBlockX = maze.getWallBlockX();
-        wallBlockY = maze.getWallBlockY();
+    private void getMazeChoice(){
+
+        turnMazeOff = maze.getMazeChoice();
 
     }
 
     private void buildWallCoords(){
+
         wallCoordinates = maze.getWallCoordinates();
+    }
+
+    private void checkWalls(){
+        walls = maze.getWalls();
     }
 
 	public int getKibbleX() {

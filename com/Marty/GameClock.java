@@ -8,12 +8,14 @@ public class GameClock extends TimerTask {
 	Kibble kibble;
 	Score score;
 	DrawSnakeGamePanel gamePanel;
+    Maze maze;
 		
-	public GameClock(Snake snake, Kibble kibble, Score score, DrawSnakeGamePanel gamePanel){
+	public GameClock(Snake snake, Kibble kibble, Score score, DrawSnakeGamePanel gamePanel, Maze maze){
 		this.snake = snake;
 		this.kibble = kibble;
 		this.score = score;
 		this.gamePanel = gamePanel;
+        this.maze = maze;
 	}
 	
 	@Override
@@ -34,10 +36,18 @@ public class GameClock extends TimerTask {
 					//tell kibble to update
 					kibble.moveKibble(snake);
 
-                    boolean warpWallsOff = snake.getWarpChoice();
+                    boolean turnOffWarp = snake.getWarpChoice();
+                    boolean turnOffMaze = maze.getMazeChoice();
 
                     //if warp walls are not on, player gets double points
-                    if (warpWallsOff == true){
+                    if (turnOffWarp == true){
+                        Score.doubleScore();
+                    } else {
+                        Score.increaseScore();
+                    }
+
+                    //if maze is on, player gets double points
+                    if (turnOffMaze == false){
                         Score.doubleScore();
                     } else {
                         Score.increaseScore();
