@@ -17,7 +17,6 @@ public class Kibble {
     private ArrayList<Integer> wallBlockX = new ArrayList<Integer>();
     private ArrayList<Integer> wallBlockY = new ArrayList<Integer>();
 
-    private ArrayList<Integer> wallCoordinates = new ArrayList<Integer>();
     List<List<Integer>> walls = new ArrayList<List<Integer>>();
 
     private Maze maze;
@@ -33,8 +32,7 @@ public class Kibble {
 
         getMazeChoice();
 
-
-        buildWallCoords();
+        checkWalls();
 
         moveKibble(s);
 
@@ -58,32 +56,44 @@ public class Kibble {
             if (turnMazeOff == false){
                 //TODO if random number generates to wall coordinate previously in the array, BUG
 
-                for (int i = 0; i > walls.size(); i++){
+                for (int i = 0; i < walls.size(); i++){
                     for (int j = 0; j < walls.get(i).size(); j++){
                         int tester = walls.get(i).get(j);
-                    }
 
-                }
-
-
-
-
-
-                for (int z = 0; z < wallCoordinates.size(); z++){
-                    int wallTester = wallCoordinates.get(z);
-
-                    while (wallTester == kibbleX || wallTester == kibbleY){
-                        if (wallTester == kibbleX){
+                        while (tester == kibbleX || tester == kibbleY){
+                            if (tester == kibbleX){
                             kibbleX = rng.nextInt(SnakeGame.xSquares);
-                        } else if (wallTester == kibbleY){
+                        } else if (tester == kibbleY){
                             kibbleY = rng.nextInt(SnakeGame.xSquares);
 
                         }
+
+                        }
                     }
+
                 }
+
+
+
+
+
+//                for (int z = 0; z < wallCoordinates.size(); z++){
+//                    int wallTester = wallCoordinates.get(z);
+//
+//                    while (wallTester == kibbleX || wallTester == kibbleY){
+//                        if (wallTester == kibbleX){
+//                            kibbleX = rng.nextInt(SnakeGame.xSquares);
+//                        } else if (wallTester == kibbleY){
+//                            kibbleY = rng.nextInt(SnakeGame.xSquares);
+//
+//                        }
+//                    }
+//                }
             }
 
 			kibbleInSnake = s.isSnakeSegment(kibbleX, kibbleY);
+
+            checkWalls();
 		}
 	}
 
@@ -91,11 +101,6 @@ public class Kibble {
 
         turnMazeOff = maze.getMazeChoice();
 
-    }
-
-    private void buildWallCoords(){
-
-        wallCoordinates = maze.getWallCoordinates();
     }
 
     private void checkWalls(){

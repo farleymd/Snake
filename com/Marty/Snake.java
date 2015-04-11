@@ -1,8 +1,8 @@
 package com.Marty;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.LinkedList;
+import java.awt.List;
+import java.util.*;
 
 public class Snake {
 
@@ -38,7 +38,9 @@ public class Snake {
 	private int maxX, maxY, squareSize;
     private int snakeHeadX, snakeHeadY; //store coordinates of head - first segment
 
-    private ArrayList<Integer> wallCoordinates = new ArrayList<Integer>();  //arrayList to hold wall coordinates for snake to run into
+   ;//arrayList to hold wall coordinates for snake to run into
+
+  java.util.List<java.util.List<Integer>> wallCoordinates = new ArrayList<java.util.List<Integer>>();
 
 	public Snake(int maxX, int maxY, int squareSize, Maze m, DrawSnakeGamePanel snakePanel){
 		this.maxX = maxX;
@@ -54,8 +56,8 @@ public class Snake {
         getMazeChoice();
 	}
 
-    protected void buildWallCoordinates(){
-        wallCoordinates = maze.getWallCoordinates();
+    protected void buildWallCoordinates() {
+        wallCoordinates = maze.getWalls();
     }
 
 
@@ -229,17 +231,37 @@ public class Snake {
         }
 
         //Does the snake hit any of the maze walls?
-//        if (turnOffMaze == false){
-//            for (int i = 0; i < wallCoordinates.size(); i++){
-//                int wallBlock = wallCoordinates.get(i);
-//
-//                if (wallBlock == snakeHeadX || wallBlock == snakeHeadY){
-//                    hitWall = true;
-//                    SnakeGame.setGameStage(SnakeGame.GAME_OVER);
-//                    return;
-//                }
-//            }
-//        }
+        if (turnOffMaze == false) {
+
+            int coordinateX = 0;
+            int coordinateY = 0;
+
+            for (int i = 0; i < wallCoordinates.size(); i++) {
+                for (int j = 0; j < wallCoordinates.get(i).size(); j++) {
+                    int tester = wallCoordinates.get(i).get(j);
+
+                    if ((j%2)==0){
+                        coordinateX = tester;
+                    } else {
+                        coordinateY = tester;
+                    }
+
+                    //TODO WARP NOW DOESN'T WORK
+
+                    if (snakeHeadX == coordinateX && snakeHeadY == coordinateY) {
+                        System.out.println("Wall Coordinate X:" + coordinateX);
+                        System.out.println("Wall Coordinate 2:" + coordinateY);
+                        System.out.println("Snake head X:" + snakeHeadX);
+                        System.out.println("Snake head Y:" + snakeHeadY);
+                        hitWall = true;
+                        SnakeGame.setGameStage(SnakeGame.GAME_OVER);
+                        return;
+                    }
+
+                }
+            }
+        }
+
 
 
 

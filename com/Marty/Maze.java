@@ -34,6 +34,8 @@ public class Maze extends JPanel {
 
     private int lineIndex = 0;
     private int leftLIndex = 0;
+    private int rightLIndex = 0;
+    private int tetrisIndex = 0;
 
     ArrayList<Integer> wall1 = new ArrayList<Integer>();
     ArrayList<Integer> wall2 = new ArrayList<Integer>();
@@ -42,26 +44,46 @@ public class Maze extends JPanel {
     ArrayList<Integer> wall5 = new ArrayList<Integer>();
     ArrayList<Integer> wall6 = new ArrayList<Integer>();
 
-    private int ac;
+    private int bg;
+    private int dg;
+    private int blockX;
+    private int blockY;
+
+    private int ac; //hopefully get rid of
 
     ArrayList<Integer> wallBlockX = new ArrayList<Integer>();
     ArrayList<Integer> wallBlockY = new ArrayList<Integer>();
 
-   ArrayList<Integer> wallCoordinates = new ArrayList<Integer>();
 
     List<List<Integer>> walls = new ArrayList<List<Integer>>();
+    ArrayList<Integer> line = new ArrayList<Integer>();
+    ArrayList<Integer> leftL = new ArrayList<Integer>();
+    ArrayList<Integer> rightL = new ArrayList<Integer>();
+    ArrayList<Integer> tetris = new ArrayList<Integer>();
+
 
     public Maze(int maxX, int maxY, int squareSize){
         this.XnumOfSquares = maxX;
         this.YnumOfSquares = maxY;
         this.squareSize = squareSize;
-        //this.snake = snake;
 
-        this.ac = 0;
+        for (int i = 0; i < gameLevel+1; i++){
+            wallBlockX.add(i,0);
+        }
+
+        for (int y = 0; y < gameLevel+1; y++){
+            wallBlockY.add(y,0);
+        }
+
+        this.bg = 0;
+        this.dg = 0;
+        this.blockX = 0;
+        this.blockY = 0;
+
+
 
         whereIsSnake();  //make sure maze doesn't build on top of starting snake
 
-        fillWallWithBlanks();
         fillWallArray();
 
         initialization();
@@ -90,6 +112,9 @@ public class Maze extends JPanel {
 
                 wall2.add(0, buildTheWallX());
                 wall2.add(1, buildTheWallY());
+
+                walls.set(bg++,wallBlockX);
+                walls.set(bg++,wallBlockY);
                 break;
             }
             case 2:{
@@ -101,6 +126,9 @@ public class Maze extends JPanel {
 
                 wall3.add(0, buildTheWallX());
                 wall3.add(1, buildTheWallY());
+
+                walls.set(bg++,wallBlockX);
+                walls.set(bg++,wallBlockY);
                 break;
             }
             case 3:{
@@ -116,6 +144,9 @@ public class Maze extends JPanel {
 
                 wall4.add(0, buildTheWallX());
                 wall4.add(1, buildTheWallY());
+
+                walls.set(bg++,wallBlockX);
+                walls.set(bg++,wallBlockY);
                 break;
             }
             case 4:{
@@ -134,6 +165,9 @@ public class Maze extends JPanel {
 
                 wall5.add(0, buildTheWallX());
                 wall5.add(1, buildTheWallY());
+
+                walls.set(bg++,wallBlockX);
+                walls.set(bg++,wallBlockY);
                 break;
             }
             case 5: {
@@ -155,6 +189,9 @@ public class Maze extends JPanel {
 
                 wall6.add(0, buildTheWallX());
                 wall6.add(1, buildTheWallY());
+
+                walls.set(bg++,wallBlockX);
+                walls.set(bg++,wallBlockY);
                 break;
             }
             default:
@@ -173,7 +210,9 @@ public class Maze extends JPanel {
 
         xStart = xRandom * squareSize;
 
-        wallCoordinates.add(ac+1,xRandom);
+
+        wallBlockX.set(blockX, xRandom);
+        blockX++;
 
         return xStart;
     }
@@ -188,7 +227,9 @@ public class Maze extends JPanel {
 
         yStart = yRandom * squareSize;
 
-        wallCoordinates.add(ac+1, yRandom);
+
+        wallBlockY.set(blockY, yRandom);
+        blockY++;
 
         return yStart;
     }
@@ -198,17 +239,31 @@ public class Maze extends JPanel {
 
         switch (gameLevel) {
             case 1: {
+                lineIndex = 0;
+                leftLIndex = 0;
+                dg = 0;
+
                 buildLine(g, wall1);
                 buildLeftL(g, wall2);
                 break;
             }
             case 2: {
+                lineIndex = 0;
+                leftLIndex = 0;
+                rightLIndex = 0;
+                dg = 0;
+
                 buildLine(g, wall1);
                 buildLeftL(g, wall2);
                 buildRightL(g, wall3);
                 break;
             }
             case 3: {
+                lineIndex = 0;
+                leftLIndex = 0;
+                rightLIndex = 0;
+                dg = 0;
+
                 buildLine(g, wall1);
                 buildLeftL(g, wall2);
                 buildRightL(g, wall3);
@@ -216,6 +271,11 @@ public class Maze extends JPanel {
                 break;
             }
             case 4: {
+                lineIndex = 0;
+                leftLIndex = 0;
+                rightLIndex = 0;
+                dg = 0;
+
                 buildLine(g, wall1);
                 buildLeftL(g, wall2);
                 buildRightL(g, wall3);
@@ -224,6 +284,12 @@ public class Maze extends JPanel {
                 break;
             }
             case 5: {
+                lineIndex = 0;
+                leftLIndex = 0;
+                rightLIndex = 0;
+                tetrisIndex = 0;
+                dg = 0;
+
                 buildLine(g, wall1);
                 buildLeftL(g, wall2);
                 buildRightL(g, wall3);
@@ -235,14 +301,6 @@ public class Maze extends JPanel {
             default:
                 break;
 
-        }
-
-        for (int i = 0; i < wallCoordinates.size(); i++){
-            int e = wallCoordinates.get(i);
-
-            if (e == 0){
-                wallCoordinates.remove(i);
-            }
         }
 
     }
@@ -264,18 +322,6 @@ public class Maze extends JPanel {
 
         //store the wall coordinates
 
-        wallCoordinates.add(ac+1,line1X/squareSize);
-        wallCoordinates.add(ac+1,line1Y/squareSize);
-        wallCoordinates.add(ac+1,line2X/squareSize);
-        wallCoordinates.add(ac+1,line2Y/squareSize);
-        wallCoordinates.add(ac+1,line3X/squareSize);
-        wallCoordinates.add(ac+1,line3Y/squareSize);
-
-        ArrayList<Integer> line = new ArrayList<Integer>();
-        for (int i = 0; i < 6; i++){
-            line.add(i, 0);
-        }
-
         line.set(lineIndex++, line1X / squareSize);
         line.set(lineIndex++, line1Y / squareSize);
         line.set(lineIndex++, line2X / squareSize);
@@ -284,8 +330,8 @@ public class Maze extends JPanel {
         line.set(lineIndex++, line3Y / squareSize);
 
 
-        walls.set(ac, line);
-        ac++;
+        walls.set(dg, line);
+        dg++;
     }
 
     private void buildLeftL(Graphics g, ArrayList<Integer> wall){
@@ -315,23 +361,6 @@ public class Maze extends JPanel {
         g.fillRect(left6X, left6Y, squareSize, squareSize);
 
         //set wall coordinates
-        wallCoordinates.add(ac+1,left1X/squareSize);
-        wallCoordinates.add(ac+1,left1Y/squareSize);
-        wallCoordinates.add(ac+1,left2X/squareSize);
-        wallCoordinates.add(ac+1,left2Y/squareSize);
-        wallCoordinates.add(ac+1,left3X/squareSize);
-        wallCoordinates.add(ac+1,left3Y/squareSize);
-        wallCoordinates.add(ac+1,left4X/squareSize);
-        wallCoordinates.add(ac+1,left4Y/squareSize);
-        wallCoordinates.add(ac+1,left5X/squareSize);
-        wallCoordinates.add(ac+1,left5Y/squareSize);
-        wallCoordinates.add(ac+1,left6X/squareSize);
-        wallCoordinates.add(ac+1,left6Y/squareSize);
-
-        ArrayList<Integer> leftL = new ArrayList<Integer>();
-        for (int i = 0; i < 12; i++){
-            leftL.add(i,0);
-        }
 
         leftL.set(leftLIndex++, left1X / squareSize);
         leftL.set(leftLIndex++, left1Y / squareSize);
@@ -347,8 +376,8 @@ public class Maze extends JPanel {
         leftL.set(leftLIndex++, left6Y / squareSize);
 
 
-        walls.set(ac, leftL);
-        ac++;
+        walls.set(dg, leftL);
+        dg++;
     }
 
     private void buildRightL(Graphics g, ArrayList<Integer> wall){
@@ -377,21 +406,22 @@ public class Maze extends JPanel {
         g.fillRect(right5X, right5Y, squareSize, squareSize);
         g.fillRect(right6X, right6Y, squareSize, squareSize);
 
-        wallCoordinates.add(ac+1,right1X/squareSize);
-        wallCoordinates.add(ac+1,right1Y/squareSize);
-        wallCoordinates.add(ac+1,right2X/squareSize);
-        wallCoordinates.add(ac+1,right2Y/squareSize);
-        wallCoordinates.add(ac+1,right3X/squareSize);
-        wallCoordinates.add(ac+1,right3Y/squareSize);
-        wallCoordinates.add(ac+1,right4X/squareSize);
-        wallCoordinates.add(ac+1,right4Y/squareSize);
-        wallCoordinates.add(ac+1,right5X/squareSize);
-        wallCoordinates.add(ac+1,right5Y/squareSize);
-        wallCoordinates.add(ac+1,right6X/squareSize);
-        wallCoordinates.add(ac+1,right6Y/squareSize);
+        rightL.set(rightLIndex++, right1X / squareSize);
+        rightL.set(rightLIndex++, right1Y / squareSize);
+        rightL.set(rightLIndex++, right2X / squareSize);
+        rightL.set(rightLIndex++, right2Y / squareSize);
+        rightL.set(rightLIndex++, right3X / squareSize);
+        rightL.set(rightLIndex++, right3Y / squareSize);
+        rightL.set(rightLIndex++, right4X / squareSize);
+        rightL.set(rightLIndex++, right4Y / squareSize);
+        rightL.set(rightLIndex++, right5X / squareSize);
+        rightL.set(rightLIndex++, right5Y / squareSize);
+        rightL.set(rightLIndex++, right6X / squareSize);
+        rightL.set(rightLIndex++,right6Y/squareSize);
 
-        walls.add(ac, wall);
-        ac = ac +1;
+        walls.set(dg, rightL);
+        dg++;
+
     }
 
     private void buildTetris(Graphics g, ArrayList<Integer> wall){
@@ -421,22 +451,21 @@ public class Maze extends JPanel {
         g.fillRect(wall.get(0)+60, wall.get(1)-30, squareSize, squareSize);
         g.fillRect(wall.get(0)+90, wall.get(1)-30, squareSize, squareSize);
 
-        wallCoordinates.add(ac+1, tetris1X/squareSize);
-        wallCoordinates.add(ac+1, tetris1Y/squareSize);
-        wallCoordinates.add(ac+1, tetris2X/squareSize);
-        wallCoordinates.add(ac+1, tetris2Y/squareSize);
-        wallCoordinates.add(ac+1, tetris3X/squareSize);
-        wallCoordinates.add(ac+1, tetris3Y/squareSize);
-        wallCoordinates.add(ac+1, tetris4X/squareSize);
-        wallCoordinates.add(ac+1, tetris4Y/squareSize);
-        wallCoordinates.add(ac+1, tetris5X/squareSize);
-        wallCoordinates.add(ac+1, tetris5Y/squareSize);
-        wallCoordinates.add(ac+1, tetris6X/squareSize);
-        wallCoordinates.add(ac+1, tetris6Y/squareSize);
+        tetris.set(tetrisIndex++, tetris1X / squareSize);
+        tetris.set(tetrisIndex++, tetris1Y / squareSize);
+        tetris.set(tetrisIndex++, tetris2X / squareSize);
+        tetris.set(tetrisIndex++, tetris2Y / squareSize);
+        tetris.set(tetrisIndex++, tetris3X / squareSize);
+        tetris.set(tetrisIndex++, tetris3Y / squareSize);
+        tetris.set(tetrisIndex++, tetris4X / squareSize);
+        tetris.set(tetrisIndex++, tetris4Y / squareSize);
+        tetris.set(tetrisIndex++, tetris5X / squareSize);
+        tetris.set(tetrisIndex++, tetris5Y/squareSize);
+        tetris.set(tetrisIndex++, tetris6X / squareSize);
+        tetris.set(tetrisIndex++, tetris6Y/squareSize);
 
-        walls.add(ac, wall);
-        ac = ac + 1;
-
+        walls.set(dg, tetris);
+        dg++;
 
     }
 
@@ -519,11 +548,6 @@ public class Maze extends JPanel {
         }
     }
 
-    private void fillWallWithBlanks(){
-        for (int x = 0; x < 100; x++){
-            wallCoordinates.add(x, 0);
-        }
-    }
 
     private void fillWallArray(){
         ArrayList<Integer> wallSegments = new ArrayList<Integer>();
@@ -533,15 +557,19 @@ public class Maze extends JPanel {
             wallSegments.add(i,0);
         }
 
-        for (int x = 0; x < gameLevel; x++){
+        for (int x = 0; x < gameLevel+1; x++){
             walls.add(x,wallSegments);
+        }
+
+        for (int i = 0; i < 6; i++){
+            line.add(i, 0);
+        }
+
+        for (int i = 0; i < 12; i++){
+            leftL.add(i,0);
         }
     }
 
-    public ArrayList<Integer> getWallCoordinates(){
-
-        return wallCoordinates;
-    }
 
     public List<List<Integer>> getWalls(){
 
