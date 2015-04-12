@@ -46,7 +46,7 @@ public class SnakeGame {
 	private static int gameStage = BEFORE_GAME;  //use this to figure out what should be happening. 
 	//Other classes like Snake and DrawSnakeGamePanel will need to query this, and change it's value
 
-    private static int gameLevel = LV_ONE;
+    private static int gameLevel = LV_FIVE;
 
 	protected static long clockInterval = 300; //controls game speed
 	//Every time the clock ticks, the snake moves
@@ -74,7 +74,7 @@ public class SnakeGame {
 		snakePanel.requestFocusInWindow(); //required to give this component the focus so it can generate KeyEvents
 
 		snakeFrame.add(snakePanel);
-		snakePanel.addKeyListener(new GameControls(snake));
+		snakePanel.addKeyListener(new GameControls(snake, maze));
 
 		setGameStage(BEFORE_GAME);
 

@@ -245,12 +245,15 @@ public class Snake {
                     } else {
                         coordinateY = tester;
                     }
-                    
+
 
                     if (snakeHeadX == coordinateX && snakeHeadY == coordinateY) {
                         if (snakeHeadX >= maxX || snakeHeadX < 0 || snakeHeadY >= maxY || snakeHeadY < 0){
                             break;
                         }else {
+
+                            //TODO REMOVE TESTERS
+                            //TODO test invisible blocks
                             System.out.println("Wall Coordinate X:" + coordinateX);
                             System.out.println("Wall Coordinate 2:" + coordinateY);
                             System.out.println("Snake head X:" + snakeHeadX);

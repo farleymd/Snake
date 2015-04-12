@@ -72,23 +72,6 @@ public class Kibble {
                     }
 
                 }
-
-
-
-
-
-//                for (int z = 0; z < wallCoordinates.size(); z++){
-//                    int wallTester = wallCoordinates.get(z);
-//
-//                    while (wallTester == kibbleX || wallTester == kibbleY){
-//                        if (wallTester == kibbleX){
-//                            kibbleX = rng.nextInt(SnakeGame.xSquares);
-//                        } else if (wallTester == kibbleY){
-//                            kibbleY = rng.nextInt(SnakeGame.xSquares);
-//
-//                        }
-//                    }
-//                }
             }
 
 			kibbleInSnake = s.isSnakeSegment(kibbleX, kibbleY);

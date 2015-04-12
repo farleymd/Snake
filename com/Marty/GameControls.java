@@ -8,9 +8,11 @@ import java.awt.event.WindowEvent;
 public class GameControls implements KeyListener{
 	
 	Snake snake;
+    Maze maze;
 	
-	GameControls(Snake s){
+	GameControls(Snake s, Maze m){
 		this.snake = s;
+        this.maze = m;
 	}
 	
 	public void keyPressed(KeyEvent ev) {
@@ -37,6 +39,7 @@ public class GameControls implements KeyListener{
 		if (SnakeGame.getGameStage() == SnakeGame.GAME_OVER){
 			snake.reset();
 			Score.resetScore();
+            maze.mazeReset();
 			
 			//Need to start the timer and start the game again
 			SnakeGame.newGame();

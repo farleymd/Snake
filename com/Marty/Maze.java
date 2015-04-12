@@ -10,25 +10,17 @@ import java.util.List;
  */
 public class Maze extends JPanel {
 
-    //TODO WALL HIT EQUALS END GAME
-
-    //TODO FIGURE OUT SNAKE STARTING POSITION WITHOUT USING SNAKE
-
-
     Random rnd = new Random();
 
     private int gameLevel = SnakeGame.getGameLevel();
-    //private Snake snake;
 
     private int XnumOfSquares;
     private int YnumOfSquares;
     private int squareSize;
 
-    private int xStart;
-    private int yStart;
+    private int xStart, yStart;
 
-    private int snakeHeadX;
-    private int snakeHeadY;
+    private int snakeHeadX, snakeHeadY;
 
     private boolean turnOffMaze = false;
 
@@ -49,14 +41,14 @@ public class Maze extends JPanel {
     private int blockX;
     private int blockY;
 
-    private int ac; //hopefully get rid of
 
-    ArrayList<Integer> wallBlockX = new ArrayList<Integer>();
+    ArrayList<Integer> wallBlockX = new ArrayList<Integer>();  //arrays used for before_game initiation
     ArrayList<Integer> wallBlockY = new ArrayList<Integer>();
 
 
-    List<List<Integer>> walls = new ArrayList<List<Integer>>();
-    ArrayList<Integer> line = new ArrayList<Integer>();
+    List<List<Integer>> walls = new ArrayList<List<Integer>>();  //array holding the wall coordinates
+
+    ArrayList<Integer> line = new ArrayList<Integer>();  //arrays for each of the maze types
     ArrayList<Integer> leftL = new ArrayList<Integer>();
     ArrayList<Integer> rightL = new ArrayList<Integer>();
     ArrayList<Integer> tetris = new ArrayList<Integer>();
@@ -84,9 +76,9 @@ public class Maze extends JPanel {
 
         whereIsSnake();  //make sure maze doesn't build on top of starting snake
 
-        fillWallArray();
+        fillWallArray();  //initiate the array used to hold wall coordinates
 
-        initialization();
+        initialization();  //finding the starting points for each maze piece
 
         wallBlockX();
         wallBlockY();
@@ -561,12 +553,20 @@ public class Maze extends JPanel {
             walls.add(x,wallSegments);
         }
 
-        for (int i = 0; i < 6; i++){
-            line.add(i, 0);
+        for (int l = 0; l < 12; l++){
+            line.add(l, 0);
         }
 
-        for (int i = 0; i < 12; i++){
-            leftL.add(i,0);
+        for (int ll = 0; ll < 24; ll++){
+            leftL.add(ll,0);
+        }
+
+        for (int r = 0; r < 24; r++){
+            rightL.add(r,0);
+        }
+
+        for (int t = 0; t < 24; t++){
+            tetris.add(t,0);
         }
     }
 
@@ -580,6 +580,30 @@ public class Maze extends JPanel {
         return turnOffMaze;
     }
 
+    public void mazeReset(){
+        for (int i = 0; i < gameLevel+1; i++){
+            wallBlockX.add(i,0);
+        }
 
+        for (int y = 0; y < gameLevel+1; y++){
+            wallBlockY.add(y,0);
+        }
+
+        this.bg = 0;
+        this.dg = 0;
+        this.blockX = 0;
+        this.blockY = 0;
+
+
+        whereIsSnake();  //make sure maze doesn't build on top of starting snake
+
+        fillWallArray();  //initiate the array used to hold wall coordinates
+
+        initialization();  //finding the starting points for each maze piece
+
+        wallBlockX();
+        wallBlockY();
+
+    }
 
 }
