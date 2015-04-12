@@ -27,7 +27,8 @@ public class Snake {
 	//The head of the snake is 1, rest of segments are numbered in order
 
 	private int currentHeading;  //Direction snake is going in, ot direction user is telling snake to go
-	private int lastHeading;    //Last confirmed movement of snake. See moveSnake method
+
+    private int lastHeading;    //Last confirmed movement of snake. See moveSnake method
 	
 	private int snakeSize;   //size of snake - how many segments?
 
@@ -199,12 +200,10 @@ public class Snake {
 		}
 		if (currentHeading == DIRECTION_LEFT) {		
 			//Subtract 1 from X coordinate so head is 1 square to the left
-            System.out.println("Left" + snakeHeadX);
 			snakeHeadX -- ;
 		}
 		if (currentHeading == DIRECTION_RIGHT) {		
 			//Add 1 to X coordinate so head is 1 square to the right
-            System.out.println("Right: " + snakeHeadX);
 			snakeHeadX ++ ;
 		}
 
@@ -424,6 +423,12 @@ public class Snake {
 		}
 		return false;
 	}
+
+    public int getCurrentHeading() {
+        return currentHeading;
+    }
+
+
 
 
 }

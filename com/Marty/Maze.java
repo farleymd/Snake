@@ -41,6 +41,8 @@ public class Maze extends JPanel {
     private int blockX;
     private int blockY;
 
+    private Image wallImage;
+
 
     ArrayList<Integer> wallBlockX = new ArrayList<Integer>();  //arrays used for before_game initiation
     ArrayList<Integer> wallBlockY = new ArrayList<Integer>();
@@ -308,9 +310,16 @@ public class Maze extends JPanel {
         int line3Y = wall.get(1) + 60;
 
         //build the line
-        g.fillRect(line1X, line1Y, squareSize, squareSize);
-        g.fillRect(line2X, line2Y, squareSize, squareSize);
-        g.fillRect(line3X, line3Y, squareSize, squareSize);
+
+        wallImage = getImage("wall.png");
+        g.drawImage(wallImage,line1X,line1Y,SnakeGame.squareSize, SnakeGame.squareSize,this);
+        g.drawImage(wallImage,line2X,line2Y,SnakeGame.squareSize, SnakeGame.squareSize,this);
+        g.drawImage(wallImage,line3X,line3Y,SnakeGame.squareSize, SnakeGame.squareSize,this);
+
+
+//        g.fillRect(line1X, line1Y, squareSize, squareSize);
+//        g.fillRect(line2X, line2Y, squareSize, squareSize);
+//        g.fillRect(line3X, line3Y, squareSize, squareSize);
 
         //store the wall coordinates
 
@@ -337,7 +346,7 @@ public class Maze extends JPanel {
         int left3Y = wall.get(1) + 60;
 
         int left4X = wall.get(0);
-        int left4Y = wall.get(0)+90;
+        int left4Y = wall.get(1)+90;
 
         int left5X = wall.get(0) + 30;
         int left5Y = wall.get(1)+90;
@@ -345,12 +354,14 @@ public class Maze extends JPanel {
         int left6X = wall.get(0) + 60;
         int left6Y = wall.get(1)+90;
 
-        g.fillRect(left1X, left1Y, squareSize, squareSize);
-        g.fillRect(left2X, left2Y, squareSize, squareSize);
-        g.fillRect(left3X, left3Y, squareSize, squareSize);
-        g.fillRect(left4X, left4Y, squareSize, squareSize);
-        g.fillRect(left5X, left5Y, squareSize, squareSize);
-        g.fillRect(left6X, left6Y, squareSize, squareSize);
+        wallImage = getImage("wall.png");
+
+        g.drawImage(wallImage, left1X, left1Y, squareSize, squareSize, this);
+        g.drawImage(wallImage, left2X, left2Y, squareSize, squareSize, this);
+        g.drawImage(wallImage, left3X, left3Y, squareSize, squareSize, this);
+        g.drawImage(wallImage, left4X, left4Y, squareSize, squareSize, this);
+        g.drawImage(wallImage, left5X, left5Y, squareSize, squareSize, this);
+        g.drawImage(wallImage, left6X, left6Y, squareSize, squareSize, this);
 
         //set wall coordinates
 
@@ -391,12 +402,14 @@ public class Maze extends JPanel {
         int right6X = wall.get(0)-60;
         int right6Y = wall.get(1)+90;
 
-        g.fillRect(right1X, right1Y, squareSize, squareSize);
-        g.fillRect(right2X, right2Y, squareSize, squareSize);
-        g.fillRect(right3X, right3Y, squareSize, squareSize);
-        g.fillRect(right4X, right4Y, squareSize, squareSize);
-        g.fillRect(right5X, right5Y, squareSize, squareSize);
-        g.fillRect(right6X, right6Y, squareSize, squareSize);
+        wallImage = getImage("wall.png");
+
+        g.drawImage(wallImage, right1X, right1Y, squareSize, squareSize, this);
+        g.drawImage(wallImage, right2X, right2Y, squareSize, squareSize, this);
+        g.drawImage(wallImage, right3X, right3Y, squareSize, squareSize, this);
+        g.drawImage(wallImage, right4X, right4Y, squareSize, squareSize, this);
+        g.drawImage(wallImage, right5X, right5Y, squareSize, squareSize, this);
+        g.drawImage(wallImage, right6X, right6Y, squareSize, squareSize, this);
 
         rightL.set(rightLIndex++, right1X / squareSize);
         rightL.set(rightLIndex++, right1Y / squareSize);
@@ -435,13 +448,14 @@ public class Maze extends JPanel {
         int tetris6X = wall.get(0)+30;
         int tetris6Y = wall.get(1)-30;
 
+        wallImage = getImage("wall.png");
 
-        g.fillRect(wall.get(0), wall.get(1), squareSize, squareSize);
-        g.fillRect(wall.get(0)+30, wall.get(1), squareSize, squareSize);
-        g.fillRect(wall.get(0)+60, wall.get(1), squareSize, squareSize);
-        g.fillRect(wall.get(0)+90, wall.get(1), squareSize, squareSize);
-        g.fillRect(wall.get(0)+60, wall.get(1)-30, squareSize, squareSize);
-        g.fillRect(wall.get(0)+90, wall.get(1)-30, squareSize, squareSize);
+        g.drawImage(wallImage,tetris1X, tetris1Y, squareSize, squareSize,this);
+        g.drawImage(wallImage,tetris2X, tetris2Y, squareSize, squareSize,this);
+        g.drawImage(wallImage,tetris3X, tetris3Y, squareSize, squareSize,this);
+        g.drawImage(wallImage,tetris4X, tetris4Y, squareSize, squareSize,this);
+        g.drawImage(wallImage,tetris5X, tetris5Y, squareSize, squareSize,this);
+        g.drawImage(wallImage,tetris6X, tetris6Y, squareSize, squareSize,this);
 
         tetris.set(tetrisIndex++, tetris1X / squareSize);
         tetris.set(tetrisIndex++, tetris1Y / squareSize);
@@ -604,6 +618,13 @@ public class Maze extends JPanel {
         wallBlockX();
         wallBlockY();
 
+    }
+
+    private Image getImage(String imagePNG){
+        Image image;
+        ImageIcon icon = new ImageIcon(this.getClass().getResource(imagePNG));
+        image = icon.getImage();
+        return image;
     }
 
 }
