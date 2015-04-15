@@ -21,7 +21,7 @@ public class DrawSnakeGamePanel extends JPanel {
 	private Score score;
     private Maze maze;
 
-    private boolean turnOffMaze;
+    private boolean turnOffMaze = false;
     private boolean displayGrid = true;  //user controlled choice to display the game grid
 
     private Image strawberry;
@@ -111,6 +111,8 @@ public class DrawSnakeGamePanel extends JPanel {
 		displaySnake(g);
 		displayKibble(g);
 
+        getMazeChoice();
+
         if (turnOffMaze == false){
             maze.displayMaze(g);
         }
@@ -154,12 +156,13 @@ public class DrawSnakeGamePanel extends JPanel {
 		int x = kibble.getKibbleX() * SnakeGame.squareSize;
 		int y = kibble.getKibbleY() * SnakeGame.squareSize;
 
-        strawberry = getImage("strawberry.png");
-        g.drawImage(strawberry,x+1,y+1,SnakeGame.squareSize-2, SnakeGame.squareSize-2,this);
-
-
-		//g.fillRect(x + 1, y + 1, SnakeGame.squareSize - 2, SnakeGame.squareSize - 2);
-		
+        try{
+            strawberry = getImage("strawberry.png");
+            g.drawImage(strawberry,x+1,y+1,SnakeGame.squareSize-2, SnakeGame.squareSize-2,this);
+        } catch (NullPointerException npe){
+            g.setColor(Color.GREEN);
+            g.fillRect(x + 1, y + 1, SnakeGame.squareSize - 2, SnakeGame.squareSize - 2);
+        }
 	}
 
 	private void displaySnake(Graphics g) {
@@ -174,71 +177,80 @@ public class DrawSnakeGamePanel extends JPanel {
         int snakeHeading = snake.getCurrentHeading();
         int pointCounter = 0;
 
-        if (snakeHeading ==0){
-            snakeHead = getImage("snakeHead.png");
-            snakeHead = rotateImage("snakeHead.png",90,this);
-            g.drawImage(snakeHead,(int)head.getX(),(int)head.getY(),SnakeGame.squareSize,SnakeGame.squareSize,this);
-        } else if (snakeHeading == 1){
-            snakeHead = getImage("snakeHead.png");
-            snakeHead = rotateImage("snakeHead.png",270,this);
-            g.drawImage(snakeHead,(int)head.getX(),(int)head.getY(),SnakeGame.squareSize,SnakeGame.squareSize,this);
-        } else if (snakeHeading == 2){
-            snakeHead = getImage("snakeHead.png");
-            g.drawImage(snakeHead,(int)head.getX(),(int)head.getY(),SnakeGame.squareSize,SnakeGame.squareSize,this);
-        } else if (snakeHeading == 3){
-            snakeHead = getImage("snakeHead.png");
-            snakeHead = flipImage("snakeHead.png",this);
-            g.drawImage(snakeHead,(int)head.getX(),(int)head.getY(),SnakeGame.squareSize,SnakeGame.squareSize,this);
+        try {
+            if (snakeHeading == 0) {
+                snakeHead = getImage("snakeHead.png");
+                snakeHead = rotateImage("snakeHead.png", 90, this);
+                g.drawImage(snakeHead, (int) head.getX(), (int) head.getY(), SnakeGame.squareSize, SnakeGame.squareSize, this);
+            } else if (snakeHeading == 1) {
+                snakeHead = getImage("snakeHead.png");
+                snakeHead = rotateImage("snakeHead.png", 270, this);
+                g.drawImage(snakeHead, (int) head.getX(), (int) head.getY(), SnakeGame.squareSize, SnakeGame.squareSize, this);
+            } else if (snakeHeading == 2) {
+                snakeHead = getImage("snakeHead.png");
+                g.drawImage(snakeHead, (int) head.getX(), (int) head.getY(), SnakeGame.squareSize, SnakeGame.squareSize, this);
+            } else if (snakeHeading == 3) {
+                snakeHead = getImage("snakeHead.png");
+                snakeHead = flipImage("snakeHead.png", this);
+                g.drawImage(snakeHead, (int) head.getX(), (int) head.getY(), SnakeGame.squareSize, SnakeGame.squareSize, this);
+            }
+        } catch (NullPointerException npe){
+            g.setColor(Color.LIGHT_GRAY);
+            g.fillRect((int)head.getX(), (int)head.getY(), SnakeGame.squareSize, SnakeGame.squareSize);
         }
 
-		//g.fillRect((int)head.getX(), (int)head.getY(), SnakeGame.squareSize, SnakeGame.squareSize);
 
 		//Draw rest of snake in black
 		g.setColor(Color.BLACK);
 		for (Point p : coordinates) {
             pointCounter = pointCounter + 1;
 
-            if (snakeHeading == 0){
-                snakeBody = getImage("snakeBody.png");
-                snakeBody = rotateImage("snakeBody.png",90,this);
-                g.drawImage(snakeBody,(int)p.getX(), (int)p.getY(), SnakeGame.squareSize,SnakeGame.squareSize,this);
+            try {
+                if (snakeHeading == 0) {
+                    snakeBody = getImage("snakeBody.png");
+                    snakeBody = rotateImage("snakeBody.png", 90, this);
+                    g.drawImage(snakeBody, (int) p.getX(), (int) p.getY(), SnakeGame.squareSize, SnakeGame.squareSize, this);
 
-                if (pointCounter == lastPoint){
-                    snakeBody = getImage("snakeTail.png");
-                    snakeBody = rotateImage("snakeTail.png",90,this);
-                    g.drawImage(snakeBody,(int)p.getX(), (int)p.getY(), SnakeGame.squareSize,SnakeGame.squareSize,this);
+                    if (pointCounter == lastPoint) {
+                        snakeBody = getImage("snakeTail.png");
+                        snakeBody = rotateImage("snakeTail.png", 90, this);
+                        g.drawImage(snakeBody, (int) p.getX(), (int) p.getY(), SnakeGame.squareSize, SnakeGame.squareSize, this);
+                    }
+
+                } else if (snakeHeading == 1) {
+                    snakeBody = getImage("snakeBody.png");
+                    snakeBody = rotateImage("snakeBody.png", 270, this);
+                    g.drawImage(snakeBody, (int) p.getX(), (int) p.getY(), SnakeGame.squareSize, SnakeGame.squareSize, this);
+
+                    if (pointCounter == lastPoint) {
+                        snakeBody = getImage("snakeTail.png");
+                        snakeBody = rotateImage("snakeTail.png", 270, this);
+                        g.drawImage(snakeBody, (int) p.getX(), (int) p.getY(), SnakeGame.squareSize, SnakeGame.squareSize, this);
+                    }
+                } else if (snakeHeading == 2) {
+                    snakeBody = getImage("snakeBody.png");
+                    g.drawImage(snakeBody, (int) p.getX(), (int) p.getY(), SnakeGame.squareSize, SnakeGame.squareSize, this);
+
+                    if (pointCounter == lastPoint) {
+                        snakeBody = getImage("snakeTail.png");
+                        g.drawImage(snakeBody, (int) p.getX(), (int) p.getY(), SnakeGame.squareSize, SnakeGame.squareSize, this);
+                    }
+                } else if (snakeHeading == 3) {
+                    snakeBody = getImage("snakeBody.png");
+                    snakeBody = flipImage("snakeBody.png", this);
+                    g.drawImage(snakeBody, (int) p.getX(), (int) p.getY(), SnakeGame.squareSize, SnakeGame.squareSize, this);
+
+                    if (pointCounter == lastPoint) {
+                        snakeBody = getImage("snakeTail.png");
+                        snakeBody = flipImage("snakeTail.png", this);
+                        g.drawImage(snakeBody, (int) p.getX(), (int) p.getY(), SnakeGame.squareSize, SnakeGame.squareSize, this);
+                    }
                 }
+            } catch (NullPointerException npe){
+                g.setColor(Color.BLACK);
+                g.fillRect((int)p.getX(), (int)p.getY(), SnakeGame.squareSize, SnakeGame.squareSize);
 
-            } else if (snakeHeading == 1){
-                snakeBody = getImage("snakeBody.png");
-                snakeBody = rotateImage("snakeBody.png",270,this);
-                g.drawImage(snakeBody,(int)p.getX(), (int)p.getY(), SnakeGame.squareSize,SnakeGame.squareSize,this);
-
-                if (pointCounter == lastPoint){
-                    snakeBody = getImage("snakeTail.png");
-                    snakeBody = rotateImage("snakeTail.png",270,this);
-                    g.drawImage(snakeBody,(int)p.getX(), (int)p.getY(), SnakeGame.squareSize,SnakeGame.squareSize,this);
-                }
-            } else if (snakeHeading == 2){
-                snakeBody = getImage("snakeBody.png");
-                g.drawImage(snakeBody,(int)p.getX(), (int)p.getY(), SnakeGame.squareSize,SnakeGame.squareSize,this);
-
-                if (pointCounter == lastPoint){
-                    snakeBody = getImage("snakeTail.png");
-                    g.drawImage(snakeBody,(int)p.getX(), (int)p.getY(), SnakeGame.squareSize,SnakeGame.squareSize,this);
-                }
-            } else if (snakeHeading == 3){
-                snakeBody = getImage("snakeBody.png");
-                snakeBody = flipImage("snakeBody.png",this);
-                g.drawImage(snakeBody,(int)p.getX(), (int)p.getY(), SnakeGame.squareSize,SnakeGame.squareSize,this);
-
-                if (pointCounter == lastPoint){
-                    snakeBody = getImage("snakeTail.png");
-                    snakeBody = flipImage("snakeTail.png",this);
-                    g.drawImage(snakeBody,(int)p.getX(), (int)p.getY(), SnakeGame.squareSize,SnakeGame.squareSize,this);
-                }
             }
-			//g.fillRect((int)p.getX(), (int)p.getY(), SnakeGame.squareSize, SnakeGame.squareSize);
 		}
 
 	}
@@ -300,6 +312,10 @@ public class DrawSnakeGamePanel extends JPanel {
 
         image = blankCanvas;
         return image;
+    }
+
+    public void setDisplayGrid(boolean displayGrid) {
+        this.displayGrid = displayGrid;
     }
 }
 

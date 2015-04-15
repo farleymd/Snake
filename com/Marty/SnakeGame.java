@@ -1,6 +1,6 @@
 package com.Marty;
 
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.util.Timer;
 
 import javax.swing.*;
@@ -8,8 +8,8 @@ import javax.swing.*;
 
 public class SnakeGame {
 
-	public final static int xPixelMaxDimension = 600;  //Pixels in window. 501 to have 50-pixel squares plus 1 to draw a border on last square
-	public final static int yPixelMaxDimension = 600;
+	public final static int xPixelMaxDimension = 501;  //Pixels in window. 501 to have 50-pixel squares plus 1 to draw a border on last square
+	public final static int yPixelMaxDimension = 501;
 
 	public static int xSquares ;
 	public static int ySquares ;
@@ -46,9 +46,10 @@ public class SnakeGame {
 	private static int gameStage = BEFORE_GAME;  //use this to figure out what should be happening. 
 	//Other classes like Snake and DrawSnakeGamePanel will need to query this, and change it's value
 
+    //set to lv_five for testing, set to lv_one for release
     private static int gameLevel = LV_FIVE;
 
-	protected static long clockInterval = 500; //controls game speed
+    protected static long clockInterval = 500; //controls game speed
 	//Every time the clock ticks, the snake moves
 	//This is the time between clock ticks, in milliseconds
 	//1000 milliseconds = 1  second.
@@ -63,6 +64,12 @@ public class SnakeGame {
 		//Create and set up the window.
 		snakeFrame = new JFrame();
 		snakeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JMenuBar menu = new JMenuBar();
+
+        menu = setJMenuBar();
+
+        snakeFrame.setJMenuBar(menu);
 
 		snakeFrame.setSize(xPixelMaxDimension, yPixelMaxDimension);
 		snakeFrame.setUndecorated(true); //hide title bar
@@ -101,6 +108,14 @@ public class SnakeGame {
 		timer.scheduleAtFixedRate(clockTick, 0 , clockInterval);
 	}
 
+    private static void setGameLevel(int gameLevel) {
+        SnakeGame.gameLevel = gameLevel;
+    }
+
+    private static void setClockInterval(long clockInterval) {
+        SnakeGame.clockInterval = clockInterval;
+    }
+
 	public static void resumeGame(){
 		Timer timer = new Timer();
 		GameClock clockTick = new GameClock(snake,kibble,score,snakePanel, maze);
@@ -122,7 +137,6 @@ public class SnakeGame {
         return gameLevel;
     }
 
-
 	public static int getGameStage() {
 		return gameStage;
 	}
@@ -142,4 +156,278 @@ public class SnakeGame {
 	public static void closeGame(){
 		snakeFrame.dispatchEvent(new WindowEvent(snakeFrame, WindowEvent.WINDOW_CLOSING));
 	}
+
+    public static JMenuBar setJMenuBar(){
+        JMenuBar jMenuBar = new JMenuBar();
+
+        JMenu gameMenu = new JMenu("Game");
+        jMenuBar.add(gameMenu);
+
+        final JMenuItem newGame = new JMenuItem("New Game");
+        newGame.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (SnakeGame.getGameStage() == SnakeGame.BEFORE_GAME){
+                    //Start the game
+                    setGameStage(SnakeGame.DURING_GAME);
+                    newGame();
+                    snakePanel.repaint();
+                }
+            }
+        });
+        gameMenu.add(newGame);
+
+        JMenuItem quitGame = new JMenuItem("Quit (Q)");
+        quitGame.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                closeGame();
+            }
+        });
+        gameMenu.add(quitGame);
+
+        JMenu warpWallsMenu = new JMenu("Warp Walls");
+        ButtonGroup warpGroup = new ButtonGroup();
+        final JRadioButtonMenuItem warpOn = new JRadioButtonMenuItem("On");
+        warpOn.setSelected(true);
+        warpOn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                snake.setTurnOffWarp(false);
+
+            }
+        });
+
+        final JRadioButtonMenuItem warpOff = new JRadioButtonMenuItem("Off");
+        warpOff.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                snake.setTurnOffWarp(true);
+            }
+        });
+        warpGroup.add(warpOn);
+        warpGroup.add(warpOff);
+        warpWallsMenu.add(warpOn);
+        warpWallsMenu.add(warpOff);
+
+        warpOn.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                int state = e.getStateChange();
+                if (state == ItemEvent.SELECTED){
+                    //if the button is selected, de-select the other button
+                    snake.setTurnOffWarp(false);
+                    warpOff.setSelected(false);
+                }
+            }
+        });
+
+        warpOff.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                int state = e.getStateChange();
+                if (state == ItemEvent.SELECTED){
+                    snake.setTurnOffWarp(true);
+                    warpOn.setSelected(false);
+                }
+            }
+        });
+
+        //Add the Warp Wall choice to the main menu
+        jMenuBar.add(warpWallsMenu);
+
+        JMenu mazeMenu = new JMenu("Maze");
+        ButtonGroup mazeGroup = new ButtonGroup();
+        final JRadioButtonMenuItem mazeOn = new JRadioButtonMenuItem("On");
+        mazeOn.setSelected(true);
+        warpOn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                maze.setTurnOffMaze(false);
+            }
+        });
+        mazeGroup.add(mazeOn);
+        mazeMenu.add(mazeOn);
+
+        final JRadioButtonMenuItem mazeOff = new JRadioButtonMenuItem("Off");
+        //level one will be set as the default
+        mazeOff.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                maze.setTurnOffMaze(true);
+                mazeOn.setSelected(false);
+            }
+        });
+
+        mazeOn.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                int state = e.getStateChange();
+                if (state==ItemEvent.SELECTED){
+                    maze.setTurnOffMaze(false);
+                    mazeOff.setSelected(false);
+                }
+            }
+        });
+
+        mazeOff.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                int state = e.getStateChange();
+                if (state==ItemEvent.SELECTED){
+                    maze.setTurnOffMaze(true);
+                    mazeOn.setSelected(false);
+                }
+            }
+        });
+
+        mazeGroup.add(mazeOff);
+        mazeMenu.add(mazeOff);
+
+        //Add the Maze choice menu to the main menu
+        jMenuBar.add(mazeMenu);
+
+        JMenu gridMenu = new JMenu("Grid");
+        ButtonGroup gridGroup = new ButtonGroup();
+        final JRadioButtonMenuItem gridOn = new JRadioButtonMenuItem("On");
+        gridOn.setSelected(true);
+
+        gridGroup.add(gridOn);
+        gridMenu.add(gridOn);
+
+        final JRadioButtonMenuItem gridOff = new JRadioButtonMenuItem("Off");
+        gridGroup.add(gridOff);
+        gridMenu.add(gridOff);
+
+        gridOn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                snakePanel.setDisplayGrid(true);
+                gridOff.setSelected(false);
+            }
+        });
+
+        gridOff.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                snakePanel.setDisplayGrid(false);
+                gridOn.setSelected(false);
+            }
+        });
+
+        jMenuBar.add(gridMenu);
+
+        JMenu gridSize = new JMenu("Grid Size");
+        ButtonGroup sizeGroup = new ButtonGroup();
+        JRadioButtonMenuItem small = new JRadioButtonMenuItem("Small");
+
+
+        JMenu gameLevel = new JMenu("Levels");
+        ButtonGroup levelGroup = new ButtonGroup();
+        JRadioButtonMenuItem lv_one = new JRadioButtonMenuItem("Level One");
+        //level one will be set as the default
+        lv_one.setSelected(true);
+        lv_one.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                setGameLevel(LV_ONE);
+            }
+        });
+        levelGroup.add(lv_one);
+        gameLevel.add(lv_one);
+
+        JRadioButtonMenuItem lv_two = new JRadioButtonMenuItem("Level Two");
+        //level one will be set as the default
+        lv_two.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                setGameLevel(LV_TWO);
+            }
+        });
+        levelGroup.add(lv_two);
+        gameLevel.add(lv_two);
+
+        JRadioButtonMenuItem lv_three = new JRadioButtonMenuItem("Level Three");
+        //level one will be set as the default
+        lv_three.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                setGameLevel(LV_THREE);
+            }
+        });
+        levelGroup.add(lv_three);
+        gameLevel.add(lv_three);
+
+        JRadioButtonMenuItem lv_four = new JRadioButtonMenuItem("Level Four");
+        //level one will be set as the default
+        lv_four.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                setGameLevel(LV_FOUR);
+            }
+        });
+        levelGroup.add(lv_four);
+        gameLevel.add(lv_four);
+
+        JRadioButtonMenuItem lv_five = new JRadioButtonMenuItem("Level Five");
+        //level one will be set as the default
+        lv_five.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                setGameLevel(LV_FIVE);
+            }
+        });
+        levelGroup.add(lv_five);
+        gameLevel.add(lv_five);
+
+        jMenuBar.add(gameLevel);
+
+
+        JMenu speed = new JMenu("Speed");
+        ButtonGroup speedGroup = new ButtonGroup();
+        JRadioButtonMenuItem slowItem = new JRadioButtonMenuItem("Slow");
+        slowItem.setSelected(true);
+        slowItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                setClockInterval(500);
+            }
+        });
+        speedGroup.add(slowItem);
+        speed.add(slowItem);
+
+        JRadioButtonMenuItem mediumItem = new JRadioButtonMenuItem("Medium");
+        mediumItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                setClockInterval(300);
+            }
+        });
+        speedGroup.add(mediumItem);
+        speed.add(mediumItem);
+
+        JRadioButtonMenuItem fastItem = new JRadioButtonMenuItem("Fast");
+        fastItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                setClockInterval(200);
+            }
+        });
+        speedGroup.add(fastItem);
+        speed.add(fastItem);
+
+        jMenuBar.add(speed);
+
+        JMenu aboutMenu = new JMenu("About");
+        jMenuBar.add(aboutMenu);
+
+        JMenuItem instructions = new JMenuItem("Instructions");
+        aboutMenu.add(instructions);
+
+        JMenuItem authors = new JMenuItem("Authors");
+        authors.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null, "Authors: Marty Farley, Clara James \n Assistance " +
+                        "from Andre Degel and Tyler Chester \n" +
+                        "Version: Snake 2.0 \n" +
+                        "Date Released: April 17th, 2015 \n" +"");
+            }
+        });
+        aboutMenu.add(authors);
+
+        return jMenuBar;
+    }
+
+
 }

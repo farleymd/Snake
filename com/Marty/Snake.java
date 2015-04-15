@@ -20,7 +20,11 @@ public class Snake {
     private boolean turnOffWarp = false;  //Variable to hold user's decision to turn Snake warping on or off
     private boolean turnOffMaze;
 
-	private int snakeSquares[][];  //represents all of the squares on the screen
+    public void setTurnOffWarp(boolean turnOffWarp) {
+        this.turnOffWarp = turnOffWarp;
+    }
+
+    private int snakeSquares[][];  //represents all of the squares on the screen
 	//NOT pixels!
 	//A 0 means there is no part of the snake in this square
 	//A non-zero number means part of the snake is in the square
