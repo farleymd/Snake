@@ -218,18 +218,15 @@ public class Snake {
                 SnakeGame.setGameStage(SnakeGame.GAME_OVER);
                 return;
             } else{
-				snakeSquares = new int[maxX][maxY];
-				fillSnakeSquaresWithZeros();
-
-				if (lastHeading == DIRECTION_LEFT && snakeHeadX == -1){  //if snake hits left wall
-					warpFromRight();
-				}else if (lastHeading == DIRECTION_RIGHT && snakeHeadX == maxX){
-					warpFromLeft();
-				}else if (lastHeading == DIRECTION_UP && snakeHeadY == -1){
-					warpFromBottom();
-				} else if (lastHeading == DIRECTION_DOWN && snakeHeadY == maxY){
-					warpFromTop();
-				}
+                if (lastHeading == DIRECTION_RIGHT && snakeHeadX >= maxX){
+                    snakeHeadX = 0;
+                } else if ( lastHeading == DIRECTION_LEFT && snakeHeadX < 0){
+                    snakeHeadX = maxX-1;
+                } else if (lastHeading == DIRECTION_DOWN && snakeHeadY >= maxY){
+                    snakeHeadY = 0;
+                } else {
+                    snakeHeadY = maxY-1;
+                }
             }
         }
 
@@ -307,43 +304,6 @@ public class Snake {
 		}
 		
 		lastHeading = currentHeading; //Update last confirmed heading
-
-	}
-
-	protected void warpFromRight(){
-		int screenFarRight = maxX-1;
-
-		snakeHeadX = screenFarRight;
-
-		currentHeading = DIRECTION_LEFT;
-		lastHeading = DIRECTION_LEFT;
-	}
-
-	protected void warpFromLeft(){
-		int screenFarRight = 0;
-
-		snakeHeadX = screenFarRight;
-
-		currentHeading = DIRECTION_RIGHT;
-		lastHeading = DIRECTION_RIGHT;
-	}
-
-	protected void warpFromBottom(){
-		int screenBottom = maxY-1;
-
-		snakeHeadY = screenBottom;
-
-		currentHeading = DIRECTION_UP;
-		lastHeading = DIRECTION_UP;
-	}
-
-	protected void warpFromTop(){
-		int screenTop = 0;
-
-		snakeHeadY = screenTop;
-
-		currentHeading = DIRECTION_DOWN;
-		lastHeading = DIRECTION_DOWN;
 	}
 
 
