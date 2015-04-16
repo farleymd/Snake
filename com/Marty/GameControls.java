@@ -48,6 +48,17 @@ public class GameControls implements KeyListener{
 			return;
 		}
 
+        if (SnakeGame.getGameStage() == SnakeGame.GAME_WON){
+            snake.reset();
+            maze.mazeReset();
+
+            //Need to start the timer and start the game again
+            SnakeGame.newGame();
+            SnakeGame.setGameStage(SnakeGame.DURING_GAME);
+            panel.repaint();
+            return;
+        }
+
 		
 		if (ev.getKeyCode() == KeyEvent.VK_DOWN) {
 			//System.out.println("snake down");

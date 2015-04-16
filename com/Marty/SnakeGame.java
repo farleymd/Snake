@@ -14,7 +14,7 @@ public class SnakeGame {
 	public static int xSquares ;
 	public static int ySquares ;
 
-	public final static int squareSize = 30;
+	public final static int squareSize = 70;
 
 	protected static Snake snake ;
 
@@ -108,7 +108,7 @@ public class SnakeGame {
 		timer.scheduleAtFixedRate(clockTick, 0 , clockInterval);
 	}
 
-    private static void setGameLevel(int gameLevel) {
+    public static void setGameLevel(int gameLevel) {
         SnakeGame.gameLevel = gameLevel;
     }
 

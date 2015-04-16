@@ -1,7 +1,6 @@
 package com.Marty;
 
 import java.awt.*;
-import java.awt.List;
 import java.util.*;
 
 public class Snake {
@@ -232,6 +231,7 @@ public class Snake {
 
         //Does the snake hit any of the maze walls?
         if (turnOffMaze == false) {
+            System.out.print("Mazes should be on if this is printing.");
 
             int coordinateX = 0;
             int coordinateY = 0;
@@ -273,6 +273,8 @@ public class Snake {
 
 
 		//Does this make the snake eat its tail?
+        //Something causing an ArrayIndexOutOfBoundsException here
+
 
 		if (snakeSquares[snakeHeadX][snakeHeadY] != 0) {
 
@@ -304,6 +306,8 @@ public class Snake {
 		}
 		
 		lastHeading = currentHeading; //Update last confirmed heading
+        getMazeChoice();
+        buildWallCoordinates();
 	}
 
 
@@ -311,6 +315,7 @@ public class Snake {
 		return hitWall;
 
 	}
+
 
 	protected boolean didEatTail(){
 		return ateTail;
@@ -353,22 +358,19 @@ public class Snake {
 		return textsnake;
 	}
 
-	public boolean wonGame() {
+	public void wonGame() {
+        int gameLevel = SnakeGame.getGameLevel();
+        int snakeTailTester = (SnakeGame.xPixelMaxDimension/squareSize) * gameLevel;
 
-		//If all of the squares have snake segments in, the snake has eaten so much kibble 
-		//that it has filled the screen. Win!
-		for (int x = 0 ; x < maxX ; x++) {
-			for (int y = 0 ; y < maxY ; y++){
-				if (snakeSquares[x][y] == 0) {
-					//there is still empty space on the screen, so haven't won
-					return false;
-				}
-			}
-		}
-		//But if we get here, the snake has filled the screen. win!
-		SnakeGame.setGameStage(SnakeGame.GAME_WON);
-		
-		return true;
+//        System.out.println("Game Level for Winning:" + gameLevel);
+//        System.out.println("Tail:" + snakeTailTester);
+//        System.out.println("Snake size:" + snakeSize);
+
+        //If the size of the snake is greater than the "win condition"
+        //based on the level, player wins
+        if (snakeSize >= snakeTailTester){
+            SnakeGame.setGameStage(SnakeGame.GAME_WON);
+        }
 	}
 
 	public void reset() {

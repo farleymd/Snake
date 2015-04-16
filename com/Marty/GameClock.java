@@ -34,6 +34,7 @@ public class GameClock extends TimerTask {
 				snake.moveSnake();
 				if (snake.didEatKibble(kibble) == true) {		
 					//tell kibble to update
+                    snake.wonGame();
 					kibble.moveKibble(snake);
 
                     boolean turnOffWarp = snake.getWarpChoice();

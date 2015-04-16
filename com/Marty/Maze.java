@@ -10,7 +10,12 @@ import java.util.List;
  */
 public class Maze extends JPanel {
 
-    //TODO IF PICTURE NOT FOUND, USE ORIGINAL GRAPHICS
+    /**
+     * See Code Documentation SIS-3 for detailed initialization process of Maze - Maze Wall Coordinates Array-
+     * Passed to Kibble and Snake - Snake Game Panel called to draw -Display the maze, which rebuilds the
+     * Wall Coordinates array
+     */
+
 
     Random rnd = new Random();
 

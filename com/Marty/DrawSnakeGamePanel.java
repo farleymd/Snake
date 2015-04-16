@@ -27,6 +27,8 @@ public class DrawSnakeGamePanel extends JPanel {
     private Image strawberry;
     private Image snakeBody;
     private Image snakeHead;
+
+    private int winTracker = 0;
 	
 	DrawSnakeGamePanel(Snake s, Kibble k, Score sc, Maze m){
 		this.snake = s;
@@ -85,6 +87,49 @@ public class DrawSnakeGamePanel extends JPanel {
 		// TODO Replace this with something really special!
 		g.clearRect(100,100,350,350);
 		g.drawString("YOU WON SNAKE!!!", 150, 150);
+
+        String textScore = score.getStringScore();
+        String textHighScore = score.getStringHighScore();
+        String newHighScore = score.newHighScore();
+
+        g.drawString("SCORE = " + textScore, 150, 250);
+
+        g.drawString("HIGH SCORE = " + textHighScore, 150, 300);
+        g.drawString(newHighScore, 150, 400);
+
+
+        int currentGameLevel = SnakeGame.getGameLevel();
+
+        if (winTracker == 0){
+            switch (currentGameLevel) {
+                case 1: {
+                    SnakeGame.setGameLevel(SnakeGame.LV_TWO);
+                    g.drawString("press a key to play again", 150, 350);
+                    break;
+                }case 2: {
+                    SnakeGame.setGameLevel(SnakeGame.LV_THREE);
+                    g.drawString("press a key to play again", 150, 350);
+                    break;
+                }case 3: {
+                    SnakeGame.setGameLevel(SnakeGame.LV_FOUR);
+                    g.drawString("press a key to play again", 150, 350);
+                    break;
+                }case 4: {
+                    SnakeGame.setGameLevel(SnakeGame.LV_FIVE);
+                    g.drawString("press a key to play again", 150, 350);
+                    break;
+                }case 5: {
+                    g.drawString("YOU ARE THE ULTIMATE SNAKE WARRIOR", 150, 350);
+                    break;
+                }
+                default:
+                    break;
+            }
+
+        }
+
+        System.out.println(currentGameLevel);
+        winTracker = 1;
 		
 	}
 	private void displayGameOver(Graphics g) {
@@ -107,7 +152,8 @@ public class DrawSnakeGamePanel extends JPanel {
 	}
 
 	private void displayGame(Graphics g) {
-		displayGameGrid(g);
+
+        displayGameGrid(g);
 		displaySnake(g);
 		displayKibble(g);
 
@@ -116,6 +162,12 @@ public class DrawSnakeGamePanel extends JPanel {
         if (turnOffMaze == false){
             maze.displayMaze(g);
         }
+
+        int gameLevel = SnakeGame.getGameLevel();
+        String levelDisplay = String.valueOf(gameLevel);
+
+        g.drawString("Level " + levelDisplay,100,100);
+        winTracker = 0;
 	}
 
 
