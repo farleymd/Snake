@@ -3,8 +3,12 @@ package com.Marty;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.LinkedList;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 /** This class responsible for displaying the graphics, so the snake, grid, kibble, instruction text and high score
@@ -13,6 +17,8 @@ import javax.swing.*;
  *
  */
 public class DrawSnakeGamePanel extends JPanel {
+
+    //TODO ADD WINNING IMAGE AND POSSIBLY GIF
 
 	private static int gameStage = SnakeGame.BEFORE_GAME;  //use this to figure out what to paint
 	
@@ -308,13 +314,23 @@ public class DrawSnakeGamePanel extends JPanel {
 	}
 
 	private void displayInstructions(Graphics g) {
-        //TODO IDEA-1
+        try{
+            URL url = new URL("http://g3.std3.ru/G/1/71/97/51974-6a6a0c50128edc7aacd9a223719672d3.gif");
+            //Icon icon = new ImageIcon(url);
+            ImageIcon icon = new ImageIcon(url);
 
-        //SnakeStartGUI snakeStartGUI = new SnakeStartGUI();
+            icon.paintIcon(this,g,0,0);
+
+
+        } catch (MalformedURLException mue){
+            mue.printStackTrace();
+        }
 
         g.drawString("Press any key to begin!", 100, 200);
         g.drawString("Press q to quit the game",100,300);
 		g.drawString("Press p to pause the game", 100, 400);
+
+
     	}
 
 	private void displayPause(Graphics g){
