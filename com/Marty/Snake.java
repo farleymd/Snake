@@ -249,13 +249,11 @@ public class Snake {
                         if (snakeHeadX >= maxX || snakeHeadX < 0 || snakeHeadY >= maxY || snakeHeadY < 0){
                             break;
                         }else {
-
-                            //TODO REMOVE TESTERS
-                            //TODO test invisible blocks
-                            System.out.println("Wall Coordinate X:" + coordinateX);
-                            System.out.println("Wall Coordinate 2:" + coordinateY);
-                            System.out.println("Snake head X:" + snakeHeadX);
-                            System.out.println("Snake head Y:" + snakeHeadY);
+                            //TEST BLOCK COORDINATES
+//                            System.out.println("Wall Coordinate X:" + coordinateX);
+//                            System.out.println("Wall Coordinate 2:" + coordinateY);
+//                            System.out.println("Snake head X:" + snakeHeadX);
+//                            System.out.println("Snake head Y:" + snakeHeadY);
                             hitWall = true;
                             SnakeGame.setGameStage(SnakeGame.GAME_OVER);
                             return;

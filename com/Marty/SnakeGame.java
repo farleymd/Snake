@@ -7,8 +7,7 @@ import javax.swing.*;
 
 
 public class SnakeGame {
-
-    //TODO CLEAN UP MENU, INCLUDE INSTRUCTIONS
+    
 
 	public final static int xPixelMaxDimension = 601;  //Pixels in window. 501 to have 50-pixel squares plus 1 to draw a border on last square
 	public final static int yPixelMaxDimension = 601;

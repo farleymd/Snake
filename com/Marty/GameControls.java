@@ -1,9 +1,7 @@
 package com.Marty;
 
-import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.WindowEvent;
 
 public class GameControls implements KeyListener{
 	

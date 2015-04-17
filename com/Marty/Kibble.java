@@ -1,6 +1,5 @@
 package com.Marty;
 
-import javax.xml.soap.Detail;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -49,7 +48,6 @@ public class Kibble {
 
             //check if kibble X or Y intersects with walls
 
-            //TODO KIBBLE STILL INTERACTING WITH WALLS
 
             if (turnMazeOff == false){
                 //TODO if random number generates to wall coordinate previously in the array, BUG
