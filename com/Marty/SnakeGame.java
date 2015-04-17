@@ -81,7 +81,7 @@ public class SnakeGame {
 		snakePanel.requestFocusInWindow(); //required to give this component the focus so it can generate KeyEvents
 
 		snakeFrame.add(snakePanel);
-		snakePanel.addKeyListener(new GameControls(snake, maze));
+		snakePanel.addKeyListener(new GameControls(snake, maze, score));
 
 		setGameStage(BEFORE_GAME);
 
@@ -407,7 +407,22 @@ public class SnakeGame {
         jMenuBar.add(aboutMenu);
 
         JMenuItem instructions = new JMenuItem("Instructions");
+        instructions.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null,"Use the UP, DOWN, LEFT and RIGHT \n" +
+                        "arrow keys to control the snake. \n" +
+                        "Eat the fruit that appears on the screen \n" +
+                        "without hitting your tail. \n" +
+                        "Turn warp walls and mazes on for an extra challenge! \n" +
+                        "To play the game: press any key \n" +
+                        "To pause the game: press p \n" +
+                        "To quit the game: press q");
+            }
+        });
         aboutMenu.add(instructions);
+
+
 
         JMenuItem authors = new JMenuItem("Authors");
         authors.addActionListener(new ActionListener() {

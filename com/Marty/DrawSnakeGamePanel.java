@@ -3,12 +3,10 @@ package com.Marty;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
-import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.LinkedList;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
 /** This class responsible for displaying the graphics, so the snake, grid, kibble, instruction text and high score
@@ -320,7 +318,7 @@ public final class DrawSnakeGamePanel extends JPanel {  ///FindBugs; made class 
             //Icon icon = new ImageIcon(url);
             ImageIcon icon = new ImageIcon(url);
 
-            icon.paintIcon(this,g,0,0);
+            icon.paintIcon(this,g,300,100);
 
 
         } catch (MalformedURLException mue){

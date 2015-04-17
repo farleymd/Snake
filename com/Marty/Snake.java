@@ -229,7 +229,7 @@ public class Snake {
 
         //Does the snake hit any of the maze walls?
         if (turnOffMaze == false) {
-            System.out.print("Mazes should be on if this is printing.");
+            //System.out.print("Mazes should be on if this is printing.");
 
             int coordinateX = 0;
             int coordinateY = 0;

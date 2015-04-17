@@ -8,12 +8,14 @@ public class GameClock extends TimerTask {
 	Kibble kibble;
 	DrawSnakeGamePanel gamePanel;
     Maze maze;
+    Score score;
 		
 	public GameClock(Snake snake, Kibble kibble, Score score, DrawSnakeGamePanel gamePanel, Maze maze){
 		this.snake = snake;
 		this.kibble = kibble;
 		this.gamePanel = gamePanel;
         this.maze = maze;
+        this.score = score;
 	}
 	
 	@Override
@@ -40,16 +42,16 @@ public class GameClock extends TimerTask {
 
                     //if warp walls are not on, player gets double points
                     if (turnOffWarp == true){
-                        Score.doubleScore();
+                        score.doubleScore();
                     } else {
-                        Score.increaseScore();
+                        score.increaseScore();
                     }
 
                     //if maze is on, player gets double points
                     if (turnOffMaze == false){
-                        Score.doubleScore();
+                        score.doubleScore();
                     } else {
-                        Score.increaseScore();
+                        score.increaseScore();
                     }
 
 				}

@@ -7,9 +7,9 @@ package com.Marty;
 
 public class Score {
 
-	static int score;
+	int score;
 	int highScore = 0;
-	static int increment;
+	 int increment;
     static int doubleIncrement;
 	
 	public Score(){
@@ -19,17 +19,17 @@ public class Score {
 
 	}
 	
-	public static void resetScore() {
+	public void resetScore() {
 		score = 0;	
 	}
 	
-	public static void increaseScore() {
+	public void increaseScore() {
 		
 		score = score + increment;
 		
 	}
 
-    public static void doubleScore(){
+    public void doubleScore(){
 
         score = score + doubleIncrement;
     }

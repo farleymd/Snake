@@ -9,10 +9,12 @@ public class GameControls implements KeyListener{
 	
 	Snake snake;
     Maze maze;
+    Score score;
 	
-	GameControls(Snake s, Maze m){
+	GameControls(Snake s, Maze m, Score score){
 		this.snake = s;
         this.maze = m;
+        this.score = score;
 	}
 	
 	public void keyPressed(KeyEvent ev) {
@@ -38,7 +40,7 @@ public class GameControls implements KeyListener{
 		
 		if (SnakeGame.getGameStage() == SnakeGame.GAME_OVER){
 			snake.reset();
-			Score.resetScore();
+			score.resetScore();
             maze.mazeReset();
 			
 			//Need to start the timer and start the game again
