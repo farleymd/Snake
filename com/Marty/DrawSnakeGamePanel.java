@@ -3,7 +3,7 @@ package com.Marty;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
-import java.io.IOException;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.LinkedList;
@@ -16,7 +16,7 @@ import javax.swing.*;
  * @author Clara
  *
  */
-public class DrawSnakeGamePanel extends JPanel {
+public final class DrawSnakeGamePanel extends JPanel {  ///FindBugs; made class final so cannot be extended
 
     //TODO ADD WINNING IMAGE AND POSSIBLY GIF
 
@@ -238,7 +238,8 @@ public class DrawSnakeGamePanel extends JPanel {
         try {
             if (snakeHeading == 0) {
                 snakeHead = getImage("snakeHead.png");
-                snakeHead = rotateImage("snakeHead.png", 90, this);
+                double degrees = 90.00;
+                snakeHead = rotateImage("snakeHead.png", degrees, this);
                 g.drawImage(snakeHead, (int) head.getX(), (int) head.getY(), SnakeGame.squareSize, SnakeGame.squareSize, this);
             } else if (snakeHeading == 1) {
                 snakeHead = getImage("snakeHead.png");
@@ -385,5 +386,6 @@ public class DrawSnakeGamePanel extends JPanel {
     public void setDisplayGrid(boolean displayGrid) {
         this.displayGrid = displayGrid;
     }
+
 }
 

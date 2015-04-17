@@ -14,8 +14,6 @@ public class Kibble {
 	
 	private int kibbleX; //This is the square number (not pixel)
 	private int kibbleY;  //This is the square number (not pixel)
-    private ArrayList<Integer> wallBlockX = new ArrayList<Integer>();
-    private ArrayList<Integer> wallBlockY = new ArrayList<Integer>();
 
     List<List<Integer>> walls = new ArrayList<List<Integer>>();
 

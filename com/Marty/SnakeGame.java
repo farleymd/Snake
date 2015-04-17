@@ -10,13 +10,13 @@ public class SnakeGame {
 
     //TODO CLEAN UP MENU, INCLUDE INSTRUCTIONS
 
-	public final static int xPixelMaxDimension = 501;  //Pixels in window. 501 to have 50-pixel squares plus 1 to draw a border on last square
-	public final static int yPixelMaxDimension = 501;
+	public final static int xPixelMaxDimension = 601;  //Pixels in window. 501 to have 50-pixel squares plus 1 to draw a border on last square
+	public final static int yPixelMaxDimension = 601;
 
 	public static int xSquares ;
 	public static int ySquares ;
 
-	public final static int squareSize = 70;
+	public final static int squareSize = 30;
 
 	protected static Snake snake ;
 
@@ -67,9 +67,7 @@ public class SnakeGame {
 		snakeFrame = new JFrame();
 		snakeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        JMenuBar menu = new JMenuBar();
-
-        menu = setJMenuBar();
+        JMenuBar menu = setJMenuBar();
 
         snakeFrame.setJMenuBar(menu);
 
@@ -316,11 +314,6 @@ public class SnakeGame {
         });
 
         jMenuBar.add(gridMenu);
-
-        JMenu gridSize = new JMenu("Grid Size");
-        ButtonGroup sizeGroup = new ButtonGroup();
-        JRadioButtonMenuItem small = new JRadioButtonMenuItem("Small");
-
 
         JMenu gameLevel = new JMenu("Levels");
         ButtonGroup levelGroup = new ButtonGroup();

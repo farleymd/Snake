@@ -5,13 +5,12 @@ import java.util.*;
 
 public class Snake {
 
-	final int DIRECTION_UP = 0;
-	final int DIRECTION_DOWN = 1;
-	final int DIRECTION_LEFT = 2;
-	final int DIRECTION_RIGHT = 3;  //These are completely arbitrary numbers.
+	static int DIRECTION_UP = 0;  //FindBugs, static suggested instead of final
+	static int DIRECTION_DOWN = 1;
+	static int DIRECTION_LEFT = 2;
+	static int DIRECTION_RIGHT = 3;  //These are completely arbitrary numbers.
 
     private Maze maze;
-    private DrawSnakeGamePanel snakePanel;
 
 	private boolean hitWall = false;
 	private boolean ateTail = false;
@@ -51,7 +50,6 @@ public class Snake {
 		this.maxY = maxY;
 		this.squareSize = squareSize;
         this.maze = m;
-        this.snakePanel = snakePanel;
 		//Create and fill snakeSquares with 0s 
 		snakeSquares = new int[maxX][maxY];
 		fillSnakeSquaresWithZeros();

@@ -7,17 +7,16 @@ package com.Marty;
 
 public class Score {
 
-	protected static int score;
-	protected static int highScore = 0;
-	protected static int increment;
-    protected static int doubleIncrement;
+	static int score;
+	int highScore = 0;
+	static int increment;
+    static int doubleIncrement;
 	
 	public Score(){
 		score = 0;
 		increment = 1;  //how many points for eating a kibble
         doubleIncrement = 2;
 
-		//Possible TODO get more points for eating kibbles, the longer the snake gets?
 	}
 	
 	public static void resetScore() {

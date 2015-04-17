@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by Marty on 4/8/2015.
  */
-public class Maze extends JPanel {
+public final class Maze extends JPanel {  ///FindBugs; made class final so cannot be extended
 
     /**
      * See Code Documentation SIS-3 for detailed initialization process of Maze - Maze Wall Coordinates Array-
@@ -21,8 +21,8 @@ public class Maze extends JPanel {
 
     private int gameLevel = SnakeGame.getGameLevel();
 
-    private int XnumOfSquares;
-    private int YnumOfSquares;
+    private int xNumOfSquares;
+    private int yNumOfSquares;
     private int squareSize;
 
     private int xStart, yStart;
@@ -64,8 +64,8 @@ public class Maze extends JPanel {
 
 
     public Maze(int maxX, int maxY, int squareSize){
-        this.XnumOfSquares = maxX;
-        this.YnumOfSquares = maxY;
+        this.xNumOfSquares = maxX;
+        this.yNumOfSquares = maxY;
         this.squareSize = squareSize;
 
         for (int i = 0; i < gameLevel+1; i++){
@@ -96,8 +96,8 @@ public class Maze extends JPanel {
 
     protected void whereIsSnake(){
 
-        int screenXCenter = (int) XnumOfSquares/2;  //Cast just in case we have an odd number
-        int screenYCenter = (int) YnumOfSquares/2;  //Cast just in case we have an odd number
+        int screenXCenter = (int) xNumOfSquares/2;  //Cast just in case we have an odd number
+        int screenYCenter = (int) yNumOfSquares/2;  //Cast just in case we have an odd number
 
         snakeHeadX = screenXCenter;
         snakeHeadY = screenYCenter;
@@ -204,11 +204,11 @@ public class Maze extends JPanel {
     //Method used to find the X starting point of a wall
     private int buildTheWallX(){
 
-        int xRandom = rnd.nextInt(XnumOfSquares);
+        int xRandom = rnd.nextInt(xNumOfSquares);
 
         while(xRandom == snakeHeadX || xRandom == snakeHeadX + 1 || xRandom == snakeHeadX + 2 || xRandom == snakeHeadX + 3
                 || xRandom == snakeHeadX - 1 || xRandom == snakeHeadX - 2){
-            xRandom = rnd.nextInt(XnumOfSquares);
+            xRandom = rnd.nextInt(xNumOfSquares);
         }
 
         xStart = xRandom * squareSize;
@@ -222,11 +222,11 @@ public class Maze extends JPanel {
 
     //Method used to find the Y starting point of a wall
     private int buildTheWallY(){
-        int yRandom = rnd.nextInt(YnumOfSquares);
+        int yRandom = rnd.nextInt(yNumOfSquares);
 
         while (yRandom == snakeHeadY || yRandom == snakeHeadY + 1 || yRandom == snakeHeadY + 2 || yRandom == snakeHeadY + 3
                 || yRandom == snakeHeadY - 1 || yRandom == snakeHeadY - 2){
-            yRandom = rnd.nextInt(YnumOfSquares);
+            yRandom = rnd.nextInt(yNumOfSquares);
         }
 
         yStart = yRandom * squareSize;
