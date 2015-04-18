@@ -170,7 +170,9 @@ public final class DrawSnakeGamePanel extends JPanel {  ///FindBugs; made class 
         int gameLevel = SnakeGame.getGameLevel();
         String levelDisplay = String.valueOf(gameLevel);
 
-        g.drawString("Level " + levelDisplay,100,100);
+        g.setColor(Color.black);
+        g.setFont(new Font("default", Font.BOLD, 16));
+        g.drawString("Level " + levelDisplay,550,550);
         winTracker = 0;
 	}
 

@@ -317,8 +317,7 @@ public class SnakeGame {
         JMenu gameLevel = new JMenu("Levels");
         ButtonGroup levelGroup = new ButtonGroup();
         JRadioButtonMenuItem lv_one = new JRadioButtonMenuItem("Level One");
-        //level one will be set as the default
-        lv_one.setSelected(true);
+
         lv_one.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 setGameLevel(LV_ONE);
@@ -328,7 +327,6 @@ public class SnakeGame {
         gameLevel.add(lv_one);
 
         JRadioButtonMenuItem lv_two = new JRadioButtonMenuItem("Level Two");
-        //level one will be set as the default
         lv_two.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 setGameLevel(LV_TWO);
@@ -338,7 +336,6 @@ public class SnakeGame {
         gameLevel.add(lv_two);
 
         JRadioButtonMenuItem lv_three = new JRadioButtonMenuItem("Level Three");
-        //level one will be set as the default
         lv_three.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 setGameLevel(LV_THREE);
@@ -348,7 +345,6 @@ public class SnakeGame {
         gameLevel.add(lv_three);
 
         JRadioButtonMenuItem lv_four = new JRadioButtonMenuItem("Level Four");
-        //level one will be set as the default
         lv_four.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 setGameLevel(LV_FOUR);
@@ -358,7 +354,8 @@ public class SnakeGame {
         gameLevel.add(lv_four);
 
         JRadioButtonMenuItem lv_five = new JRadioButtonMenuItem("Level Five");
-        //level one will be set as the default
+        //level five will be set as the default
+        lv_five.setSelected(true);
         lv_five.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 setGameLevel(LV_FIVE);
